@@ -1,0 +1,53 @@
+body {
+  font-family: "formiga", sans-serif;
+  font-weight: 400; /* o 700 si quieres usar el estilo negrita por defecto */
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  color: #333;
+}
+h1, h2, h3 {
+  font-family: "formiga", sans-serif;
+  font-weight: 700;
+}
+header {
+  background-color: #efcee8;
+  color: #ed2144;
+  padding: 20px;
+  text-align: center;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
+
+section {
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #ddd;
+
+}
+
+img {
+  max-width: 300px; /* Ancho máximo de 300px */
+  height: auto;     /* Mantiene la proporción */
+  border-radius: 8px; /* Bordes redondeados para que se vea más bonito */
+  display: block;   /* Para que no tenga espacio extra debajo */
+  margin: 20px 0;
+}
