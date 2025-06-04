@@ -1,57 +1,101 @@
 console.log("¡Bienvenida a mi portafolio!");
 
-// --- Activar clase activa en el menú ---
-const links = document.querySelectorAll('.menu-links a');
-links.forEach(link => {
-  link.addEventListener('click', () => {
-    links.forEach(l => l.classList.remove('activo'));
-    link.classList.add('activo');
-  });
-});
+// --- Rebote de burbujas en los bordes ---
+document.querySelectorAll('.burbuja').forEach(burbuja => {
+  let velocity = { x: 0, y: 0 };
+  let position = { x: 0, y: 0 };
+  let animationFrame;
+  let lastMouse = { x: 0, y: 0 };
+  let isMoving = false;
 
-document.querySelectorAll('.burbuja').forEach(img => {
-  let isDragging = false;
-  let offsetX, offsetY;
+  // Inicializa la posición relativa
+  burbuja.style.position = 'absolute';
+  const rect = burbuja.getBoundingClientRect();
+  position.x = rect.left + window.scrollX;
+  position.y = rect.top + window.scrollY;
+  burbuja.style.left = position.x + 'px';
+  burbuja.style.top = position.y + 'px';
 
-  img.addEventListener('mousedown', function(e) {
-    isDragging = true;
+  function animate() {
+    // Aplica fricción
+    velocity.x *= 0.94;
+    velocity.y *= 0.94;
 
-    const rect = img.getBoundingClientRect();
-    offsetX = e.clientX - rect.left;
-    offsetY = e.clientY - rect.top;
+    position.x += velocity.x;
+    position.y += velocity.y;
 
-    img.style.cursor = 'grabbing';
+    // Tamaño de la burbuja
+    const width = burbuja.offsetWidth;
+    const height = burbuja.offsetHeight;
 
-    function moveAt(clientX, clientY) {
-  const containerRect = img.parentElement.getBoundingClientRect();
-  let left = clientX - containerRect.left - offsetX;
-  let top = clientY - containerRect.top - offsetY;
+    // Límites de la ventana
+    const minX = 0;
+    const minY = 0;
+    const maxX = window.innerWidth - width;
+    const maxY = window.innerHeight - height;
 
-  // Limita que no se salga del contenedor
-  left = Math.max(0, Math.min(left, containerRect.width - rect.width));
-  top = Math.max(0, Math.min(top, containerRect.height - rect.height));
+    // Rebote horizontal
+    if (position.x < minX) {
+      position.x = minX;
+      velocity.x *= -0.7; // rebote y pierde energía
+    } else if (position.x > maxX) {
+      position.x = maxX;
+      velocity.x *= -0.7;
+    }
 
-  img.style.left = left + 'px';
-  img.style.top = top + 'px';
+    // Rebote vertical
+    if (position.y < minY) {
+      position.y = minY;
+      velocity.y *= -0.7;
+    } else if (position.y > maxY) {
+      position.y = maxY;
+      velocity.y *= -0.7;
+    }
+
+    burbuja.style.left = position.x + 'px';
+    burbuja.style.top = position.y + 'px';
+
+    // Si la velocidad es significativa, sigue animando
+    if (Math.abs(velocity.x) > 0.5 || Math.abs(velocity.y) > 0.5) {
+      animationFrame = requestAnimationFrame(animate);
+    } else {
+      isMoving = false;
+    }
+  }
+
+  burbuja.addEventListener('mousemove', (e) => {
+    const rect = burbuja.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const edgeThreshold = 20;
+
+    // Calcula la velocidad del mouse
+    const dx = e.movementX || e.clientX - lastMouse.x;
+    const dy = e.movementY || e.clientY - lastMouse.y;
+    lastMouse = { x: e.clientX, y: e.clientY };
+
+    let hit = false;
+
+    if (x < edgeThreshold) {
+  velocity.x = -dx * 1.5;
+  hit = true;
+} else if (x > rect.width - edgeThreshold) {
+  velocity.x = dx * 1.5;
+  hit = true;
 }
 
-    function onMouseMove(e) {
-      if (!isDragging) return;
-      moveAt(e.clientX, e.clientY);
-    }
+if (y < edgeThreshold) {
+  velocity.y = -dy * 1.5;
+  hit = true;
+} else if (y > rect.height - edgeThreshold) {
+  velocity.y = dy * 1.5;
+  hit = true;
+}
 
-    function onMouseUp() {
-      isDragging = false;
-      img.style.cursor = 'grab';
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
+    if (hit && !isMoving) {
+      isMoving = true;
+      cancelAnimationFrame(animationFrame);
+      animationFrame = requestAnimationFrame(animate);
     }
-
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
   });
-
-  img.ondragstart = () => false;
 });
-
-

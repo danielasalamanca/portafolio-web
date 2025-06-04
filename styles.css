@@ -34,8 +34,11 @@ h4 {
 header {
   background-color: #eae9e5;
   color: #333;
-  padding: 10px 10px 10px 10px;
-  text-align: center;
+  padding: 10px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
 }
 
 header h2 {
@@ -47,87 +50,22 @@ header h2 {
   max-width: 200px;
   height: auto;
   display: block;
-  margin: 10px auto 10px auto;
+  margin: 10px 0;
 }
 
-.burbujas {
-  position: relative;
-  width: 100%;
-  height: 400px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.burbuja {
-  position: absolute;
-  cursor: grab;
-  transition: transform 0.2s ease;
-}
-
-.editorial {
-  width: 450px; /* O el valor que prefieras */
-  height: auto;
-  left: 300px;
-  top: 0px;
-}
-
-.branding {
-  left: 650px;
-  top: 90px;
-}
-
-.ilustracion {
-  left: 400px;
-  top: 200px;
-}
-
-
-.drag-img {
-  height: 80px;
-  position: absolute;
-  cursor: grab;
-  transition: box-shadow 0.2s;
-  border-radius: 8px;
-}
-
-nav a {
-  color: #333;
-  text-decoration: none;
-}
-
-/* === Secciones === */
-section {
-  padding: 40px 20px;
-  max-width: 800px;
-  margin: 100px 0 0 0; /* Esto baja más los enlaces */
-}
-
-/* === Footer === */
-footer {
-  text-align: center;
-  padding: 20px;
-  background-color: #ddd;
-}
-
-/* === Imágenes generales === */
-img {
-  max-width: 400px;
-  height: auto;
-  border-radius: 8px;
-  display: block;
-  margin: 20px 0;
-}
-
-/* === Menú de navegación debajo del header === */
+/* === Menú de navegación arriba a la derecha === */
 .menu-links {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   gap: 20px;
   list-style: none;
   padding: 0;
-  margin: 50px 0 0 0; /* Esto baja más los enlaces */
+  margin: 0;
+}
+
+.menu-links li {
+  display: inline;
 }
 
 .menu-links li a {
@@ -147,4 +85,69 @@ img {
   border: 1px solid #9d9d9c;
   color: #000;
   font-weight: bold;
+}
+
+/* === Burbujas === */
+.burbujas {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.burbuja {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+.editorial {
+  width: 450px;
+  height: auto;
+  left: 300px;
+  top: 0px;
+}
+
+.branding {
+  left: 650px;
+  top: 90px;
+}
+
+.ilustracion {
+  left: 400px;
+  top: 200px;
+}
+
+.drag-img {
+  height: 80px;
+  position: absolute;
+  cursor: grab;
+  transition: box-shadow 0.2s;
+  border-radius: 8px;
+}
+
+/* === Secciones === */
+section {
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: 100px 0 0 0;
+}
+
+/* === Footer === */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #ddd;
+}
+
+/* === Imágenes generales === */
+img {
+  max-width: 400px;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  margin: 20px 0;
 }
