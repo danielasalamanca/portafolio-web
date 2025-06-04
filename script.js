@@ -1,5 +1,6 @@
 console.log("¡Bienvenida a mi portafolio!");
 
+
 // --- Rebote de burbujas en los bordes ---
 document.querySelectorAll('.burbuja').forEach(burbuja => {
   let velocity = { x: 0, y: 0 };
