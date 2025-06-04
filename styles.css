@@ -1,53 +1,150 @@
+/* === Estilo general del cuerpo del sitio === */
 body {
   font-family: "formiga", sans-serif;
-  font-weight: 400; /* o 700 si quieres usar el estilo negrita por defecto */
+  font-weight: 400;
   margin: 0;
   padding: 0;
   line-height: 1.6;
-  background-color: #f9f9f9;
+  background-color: #eae9e5;
   color: #333;
 }
-h1, h2, h3 {
+
+/* === Títulos principales === */
+h1, h2 {
   font-family: "formiga", sans-serif;
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 16pt;
 }
+
+/* === Subtítulos === */
+h3 {
+  font-family: "formiga", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+h4 {
+  font-family: "formiga", sans-serif;
+  font-weight: 100;
+  font-size: 14pt;
+  color: #333;
+}
+
+/* === Encabezado === */
 header {
-  background-color: #efcee8;
-  color: #ed2144;
-  padding: 20px;
+  background-color: #eae9e5;
+  color: #333;
+  padding: 10px 10px 10px 10px;
   text-align: center;
 }
 
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 1rem;
-  padding: 0;
+header h2 {
+  margin-top: 0;
+  padding-top: 10px;
 }
+
+.logo-header {
+  max-width: 200px;
+  height: auto;
+  display: block;
+  margin: 10px auto 10px auto;
+}
+
+.burbujas {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.burbuja {
+  position: absolute;
+  cursor: grab;
+  transition: transform 0.2s ease;
+}
+
+.editorial {
+  width: 450px; /* O el valor que prefieras */
+  height: auto;
+  left: 300px;
+  top: 0px;
+}
+
+.branding {
+  left: 650px;
+  top: 90px;
+}
+
+.ilustracion {
+  left: 400px;
+  top: 200px;
+}
+
+
+.drag-img {
+  height: 80px;
+  position: absolute;
+  cursor: grab;
+  transition: box-shadow 0.2s;
+  border-radius: 8px;
 }
 
 nav a {
-  color: white;
+  color: #333;
   text-decoration: none;
 }
 
+/* === Secciones === */
 section {
   padding: 40px 20px;
   max-width: 800px;
-  margin: auto;
+  margin: 100px 0 0 0; /* Esto baja más los enlaces */
 }
 
+/* === Footer === */
 footer {
   text-align: center;
   padding: 20px;
   background-color: #ddd;
-
 }
 
+/* === Imágenes generales === */
 img {
-  max-width: 300px; /* Ancho máximo de 300px */
-  height: auto;     /* Mantiene la proporción */
-  border-radius: 8px; /* Bordes redondeados para que se vea más bonito */
-  display: block;   /* Para que no tenga espacio extra debajo */
+  max-width: 400px;
+  height: auto;
+  border-radius: 8px;
+  display: block;
   margin: 20px 0;
+}
+
+/* === Menú de navegación debajo del header === */
+.menu-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 50px 0 0 0; /* Esto baja más los enlaces */
+}
+
+.menu-links li a {
+  text-decoration: none;
+  font-family: "formiga", sans-serif;
+  font-size: 0.9rem;
+  padding: 6px 14px;
+  border: 1px solid #ccc;
+  border-radius: 999px;
+  color: #333;
+  background-color: #eae9e5;
+  transition: all 0.3s ease;
+}
+
+.menu-links li a:hover {
+  background-color: #f3cd52;
+  border: 1px solid #9d9d9c;
+  color: #000;
+  font-weight: bold;
 }
