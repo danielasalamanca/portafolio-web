@@ -203,3 +203,56 @@ img {
 /* === About === */
 
 
+/* --- Responsive para móviles --- */
+@media (max-width: 600px) {
+  body {
+    font-size: 12pt;
+    background-size: 250px auto;
+    padding: 0 5px;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 10px;
+  }
+
+  .logo-header {
+    max-width: 120px;
+    margin: 10px 0;
+  }
+
+  .menu-links {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .menu-links li {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .burbujas {
+    min-height: 300px;
+  }
+
+  .burbuja {
+    min-width: 90px;
+    max-width: 90vw;
+    height: 50px;
+    font-size: 11pt;
+    padding: 0 6px;
+  }
+
+  section {
+    padding: 20px 5px;
+    margin: 40px 0 0 0;
+    max-width: 100vw;
+  }
+
+  img {
+    max-width: 95vw;
+  }
+}
