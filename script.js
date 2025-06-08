@@ -1,5 +1,11 @@
 console.log("¡Bienvenida a mi portafolio!");
 
+const tipografias = [
+  '"roc-grotesk", sans-serif',
+  '"new-spirit-condensed", serif',
+  '"neulis-neue", sans-serif',
+];
+
 const colores = [
   "#5ca089", "#6496f7", "#de97c9", "#b0ae54", "#f9da74",
   "#f18f38", "#efd6fb", "#fd7591", "#90b4f8", "#cddc39"
@@ -41,8 +47,11 @@ for (let i = 0; i < 3; i++) {
     const div = document.createElement('div');
     div.className = `burbuja ${tipo.clase}`;
     div.textContent = tipo.texto;
-    // Color barajado
+    // Color aleatorio
     div.style.background = colorList[colorIndex++];
+    // Tipografía aleatoria
+    const fuente = tipografias[Math.floor(Math.random() * tipografias.length)];
+    div.style.fontFamily = fuente;
     // Posición aleatoria
     const left = Math.random() * (containerWidth - 200);
     const top = Math.random() * (containerHeight - 100);

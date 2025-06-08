@@ -7,10 +7,10 @@ body {
   line-height: 1.6;
   background-color: #eae9e5;
   color: #333;
-  background-image: url('img/portafolio.png');
+  background-image: url('img/portafolio2.png');
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: 400px auto;
+  background-size: 500px auto;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -89,8 +89,8 @@ header h2 {
 /* === Estilo de los enlaces del menú de navegación === */
 .menu-links li a {
   text-decoration: none;
-  font-family: "ff-real-text-pro", sans-serif;
-  font-weight: 400;
+  font-family: "roc-grotesk", sans-serif;
+  font-weight: 500;
   font-style: normal;
   font-size: 10pt;
   padding: 6px 14px;
@@ -133,8 +133,8 @@ header h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "roc-grotesk", sans-serif;
-  font-weight: 500;
+  font-family: "roc-grotesk", "new-spirit-condensed", "neulis-neue", sans-serif;
+  font-weight: 300;
   font-size: 14pt;
   font-style: normal;
   color: #111;
