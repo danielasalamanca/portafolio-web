@@ -18,13 +18,13 @@ body {
 
 /* === Títulos principales === */
 section h1 {
-  font-family: "roc-grotesk", sans-serif;
-  font-weight: 700;
-  font-size: 22pt;
+font-family: "avory-i-pe", sans-serif;
+  font-weight: 800;
+  font-size: 30pt;
   color: #ed4845;
   text-align: center;
   margin-bottom: 32px;
-  letter-spacing: 2px;
+  letter-spacing: 0px;
 }
 
 /* === Subtítulos === */
@@ -85,7 +85,7 @@ header h2 {
 .menu-links li {
   display: inline;
 }
-/* === Estilo de los enlaces del menú de navegación === */
+
 .menu-links li a {
   text-decoration: none;
   font-family: "roc-grotesk", sans-serif;
@@ -106,7 +106,7 @@ header h2 {
   color: #000;
   font-weight: 500;
 }
-/* === Menú de navegación en la parte superior izquierda === */
+
 .menu-links li a.activo,
 .menu-links li a:hover {
   background-color: #ed4845;
