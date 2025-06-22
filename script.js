@@ -14,7 +14,8 @@ const colores = [
 const tipos = [
   { clase: 'editorial', texto: 'Editorial' },
   { clase: 'branding', texto: 'Branding' },
-  { clase: 'ilustracion', texto: 'Ilustración' }
+  { clase: 'ilustracion', texto: 'Ilustración' },
+  { clase: 'diseño', texto: 'Diseño' }
 ];
 
 const burbujasContainer = document.querySelector('.burbujas');
