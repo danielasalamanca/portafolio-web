@@ -660,7 +660,8 @@ a.enlace-destacado {
   font-family: "roc-grotesk", sans-serif;
   font-size: 1rem;
   color: #ed4845;
-  font-weight: 500;
+  font-weight: 5
+  00;
   text-decoration: none;
   transition: color 0.2s;
 }
