@@ -23,10 +23,37 @@
     </ul>
   </header>
 
-  <section>
-    <h2>Hola, soy Daniela</h2>
-    <p>danielasalamancarios@gmail.com</p>
-    <p>peoooo</p>
+  <section class="contacto-container">
+    <div class="contacto-texto">
+      <h2>¿Tienes un proyecto en mente? ¡Contáctame!</h2>
+      <p>Puedes rellenar el formulario o escribirme directamente a <a href="mailto:danielasalamancarios@gmail.com">danielasalamancarios@gmail.com</a>.</p>
+    </div>
+
+    <div class="formulario-wrapper">
+      <form action="https://formsubmit.co/danielasalamancarios@gmail.com" method="POST" class="formulario-contacto">
+        <div class="grupo-nombre">
+          <div>
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="name" required>
+          </div>
+          <div>
+            <label for="apellido">Apellido</label>
+            <input type="text" id="apellido" name="lastname">
+          </div>
+        </div>
+
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="mensaje">Mensaje</label>
+        <textarea id="mensaje" name="message" rows="4" required></textarea>
+
+        <input type="hidden" name="_next" value="https://tusitio.com/gracias.html">
+        <input type="hidden" name="_captcha" value="false">
+
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
   </section>
 
   <footer>
