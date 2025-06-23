@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Libro Bauhaus</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="stylesheet" href="https://use.typekit.net/rse8rry.css">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="sin-fondo">
+  <header>
+    <a href="index.html">
+      <img src="img/danielasalamanca.png" alt="danielasalamanca" class="logo-header" />
+    </a>
+    <ul class="menu-links">
+      <li><a href="trabajos.html" class="activo">Trabajos</a></li>
+      <li><a href="about.html">Sobre mí</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </header>
+
+  <section>
+    <div class="proyecto-container">
+         <div class="slider">
+      <button class="slider-arrow left" onclick="prevImg()" aria-label="Anterior">
+        <img src="img/flechaiz.png" alt="Anterior">
+      </button>
+      <img id="slider-img" src="img/30udp-01.png" alt="30 años">
+      <button class="slider-arrow right" onclick="nextImg()" aria-label="Siguiente">
+        <img src="img/flechade.png" alt="Siguiente">
+      </button>
+    </div>
+      <div class="proyecto-info">
+         <div class="proyecto-info">
+      <div class="badge-año">2024</div>
+      <h2>30 años Escuela de Diseño UDP</h2>
+      <p>Descripción</p>
+    </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Daniela Salamanca</p>
+  </footer>
+
+  <script>
+    const images = [
+      "img/30udp-01.png",
+        "img/30udp-02.png",
+        "img/30udp-03.png",
+        "img/30udp-04.png",
+        "img/30udp-05.png",
+        "img/30udp_06.png",
+    ];
+    let current = 0;
+    const sliderImg = document.getElementById('slider-img');
+    function showImg(idx) {
+      sliderImg.src = images[idx];
+    }
+    function prevImg() {
+      current = (current - 1 + images.length) % images.length;
+      showImg(current);
+    }
+    function nextImg() {
+      current = (current + 1) % images.length;
+      showImg(current);
+    }
+    showImg(current);
+  </script>
+</body>
+</html>

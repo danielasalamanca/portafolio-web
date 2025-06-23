@@ -655,3 +655,17 @@ a[href^="mailto:"]:hover {
   font-size: 1.4rem;
   color: #222;
 }
+
+a.enlace-destacado {
+  font-family: "roc-grotesk", sans-serif;
+  font-size: 1rem;
+  color: #ed4845;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a.enlace-destacado:hover {
+  color: #222;
+  text-decoration: underline;
+}

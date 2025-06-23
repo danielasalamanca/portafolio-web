@@ -119,3 +119,4 @@ document.querySelectorAll('.burbuja').forEach(burbuja => {
     }
   });
 });
+

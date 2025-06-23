@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dress Up - Carrusel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="stylesheet" href="https://use.typekit.net/rse8rry.css">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Estilos exclusivos para el slider de dressup.html */
+    .slider-dressup {
+      width: 400px;
+      height: 400px;
+      max-width: 100vw;
+      max-height: 100vw;
+      background: #f7f7f4;
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    }
+    .slider-dressup img,
+    .slider-dressup video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Usa 'contain' si prefieres ver todo el video sin recorte */
+      border-radius: 24px;
+      display: block;
+      background: #f7f7f4;
+    }
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      width: auto;
+      height: auto;
+      padding: 0;
+      box-shadow: none;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .slider-arrow.left {
+      left: 5px;
+    }
+    .slider-arrow.right {
+      right: 5px;
+    }
+    .slider-arrow img {
+      width: 28px;
+      height: 28px;
+      display: block;
+      opacity: 0.4;
+      transition: opacity 0.2s;
+    }
+    .slider-arrow:hover img {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="sin-fondo">
+  <header>
+    <a href="index.html">
+      <img src="img/danielasalamanca.png" alt="danielasalamanca" class="logo-header" />
+    </a>
+    <ul class="menu-links">
+      <li><a href="trabajos.html" class="activo">Trabajos</a></li>
+      <li><a href="about.html">Sobre mí</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </header>
+
+  <section>
+    <div class="proyecto-container">
+      <div class="slider slider-dressup">
+        <!-- Imagen -->
+        <img src="img/osodressup.png" alt="oso dressup" class="slide" style="display:block;">
+        <!-- Video -->
+        <video src="img/oso.mov" controls class="slide" style="display:none;"></video>
+        <!-- Flechas -->
+        <button class="slider-arrow left" type="button">
+          <img src="img/flechaiz.png" alt="Anterior">
+        </button>
+        <button class="slider-arrow right" type="button">
+          <img src="img/flechade.png" alt="Siguiente">
+        </button>
+      </div>
+      <div class="proyecto-info">
+        <div class="badge-año">2024</div>
+        <h2>Dress Up Game</h2>
+        <p>Proyecto desarrollado en p5.js utilizando lenguaje JavaScript. Realizado para el ramo de Programación Creativa Multimedia, impartido por Aarón Montoya. </p>
+<a href="https://editor.p5js.org/danielasalamanca/sketches/fptcbXC_F" 
+   target="_blank" rel="noopener" class="enlace-destacado">
+  https://editor.p5js.org/danielasalamanca/sketches/fptcbXC_F
+</a>
+    </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Daniela Salamanca</p>
+  </footer>
+
+  <script>
+    // Carrusel para imagen y video
+    const slides = document.querySelectorAll('.slider-dressup .slide');
+    let current = 0;
+
+    function showSlide(idx) {
+      slides.forEach((slide, i) => {
+        slide.style.display = i === idx ? 'block' : 'none';
+        if (slide.tagName === 'VIDEO') slide.pause();
+      });
+    }
+
+    document.querySelector('.slider-dressup .slider-arrow.left').onclick = function() {
+      current = (current - 1 + slides.length) % slides.length;
+      showSlide(current);
+    };
+    document.querySelector('.slider-dressup .slider-arrow.right').onclick = function() {
+      current = (current + 1) % slides.length;
+      showSlide(current);
+    };
+
+    showSlide(current);
+  </script>
+</body>
+</html>
