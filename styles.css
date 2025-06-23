@@ -1,36 +1,41 @@
-/* === Estilo general del cuerpo del sitio === */
+/* === Reset y configuración base === */
+html, body {
+  height: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #f3ede3;
+}
+
+/* === Body y layout general === */
 body {
   font-family: "formiga", sans-serif;
   font-weight: 400;
-  margin: 0;
-  padding: 0;
   line-height: 1.6;
-  background-color: #f3ede3;
   color: #333;
   background-image: url('img/portafolio2.png');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 500px auto;
   min-height: 100vh;
-  display: flex;
+  display: flex;           /* <-- AGREGA ESTO */
   flex-direction: column;
 }
 
-/* === Títulos principales === */
+/* === Títulos principales y subtítulos === */
 section h1 {
-font-family: "avory-i-pe", sans-serif;
+  font-family: "avory-i-pe", sans-serif;
   font-weight: 800;
   font-size: 30pt;
-  color: #ce0530;
+  color: #e8413d;
   text-align: center;
   margin-bottom: 32px;
 }
 
-/* === Subtítulos === */
 h2 {
   font-family: "ff-real-text-pro-2", sans-serif;
-font-weight: 400;
-font-style: normal;
+  font-weight: 400;
+  font-style: normal;
   font-size: 12pt;
   color: #333;
   margin-top: 0;
@@ -56,6 +61,7 @@ h4 {
   margin-bottom: 1px;
   color: #333;
 }
+
 h5 {
   font-family: "roc-grotesk", sans-serif;
   font-weight: 300;
@@ -63,6 +69,7 @@ h5 {
   font-size: 1.15rem;
   color: #222;
 }
+
 h6 {
   font-family: "roc-grotesk", sans-serif;
   font-weight: 500;
@@ -71,7 +78,7 @@ h6 {
   color: #ed4845;
 }
 
-/* === Encabezado === */
+/* === Header === */
 header {
   background-color: #f3ede3;
   color: #333;
@@ -94,7 +101,7 @@ header h2 {
   margin: 10px 0;
 }
 
-/* === Menú de navegación arriba a la derecha === */
+/* === Menú de navegación === */
 .menu-links {
   display: flex;
   justify-content: flex-end;
@@ -123,26 +130,20 @@ header h2 {
   transition: all 0.3s ease;
 }
 
-.menu-links li a:hover {
-  background-color: #ed4845;
-  border: 1px solid #9d9d9c;
-  color: #000;
-  font-weight: 500;
-}
-
-.menu-links li a.activo,
-.menu-links li a:hover {
+.menu-links li a:hover,
+.menu-links li a.activo {
   background-color: #ed4845;
   border: 1px solid #9d9d9c;
   color: #fff;
   font-weight: 500;
 }
-/* === Burbujas === */
+
+/* === Burbujas decorativas === */
 .burbujas {
   position: relative;
   flex: 1 1 auto;
   width: 100%;
-  min-height: 200px; /* o el mínimo que quieras */
+  min-height: 200px;
   height: auto;
 }
 
@@ -182,12 +183,14 @@ header h2 {
   border-radius: 8px;
 }
 
-/* === Secciones === */
+/* === Secciones generales === */
 section {
   padding: 40px 20px;
   max-width: 1200px;
-  margin: 100px auto 0 auto; /* Centra la sección */
+  margin: 20px auto 0 auto; /* <-- CAMBIA 100px por 20px o 0px */
   width: 100%;
+  flex: 1 0 auto;
+  min-height: 0;
 }
 
 section h1 {
@@ -195,24 +198,13 @@ section h1 {
 }
 
 /* === Footer === */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
 footer {
-font-family: roc-grotesk, sans-serif;
-font-weight: 300;
-font-style: normal;
-font-size: 8pt;
-margin-top: auto;
+  font-family: "ff-real-headline-pro", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+  font-size: 8pt;
+  margin-top: auto;
+  width: 100%;
   text-align: center;
   padding: 0.5px;
   background-color: #e7e3dc;
@@ -227,10 +219,7 @@ img {
   margin: 20px 0;
 }
 
-/* === About === */
-
-/* menu link trabajos */
-/* Grilla de trabajos */
+/* === Grilla de trabajos === */
 .grilla-trabajos {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -254,7 +243,204 @@ img {
   display: block;
 }
 
-/* --- Responsive para móviles --- */
+/* === Libro Bauhaus === */
+.proyecto-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+.slider {
+  width: 400px;
+  height: 400px;
+  max-width: 100vw;
+  max-height: 100vw;
+  background: #f7f7f4;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10); 
+}
+
+.slider img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 24px;
+  display: block;
+  background: #f7f7f4;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;   /* <-- Sin fondo */
+  border: none;              /* <-- Sin borde */
+  border-radius: 0;          /* <-- Sin borde redondeado */
+  width: auto;               /* <-- Solo el tamaño de la imagen */
+  height: auto;
+  padding: 0;                /* <-- Sin padding extra */
+  box-shadow: none;          /* <-- Sin sombra */
+  cursor: pointer;
+  z-index: 2;
+}
+
+.slider-arrow.left {
+  left: 5px;
+}
+
+.slider-arrow.right {
+  right: 5px;
+}
+
+.slider-arrow img {
+  width: 28px;
+  height: 28px;
+  display: block;
+  opacity: 0.4; /* Ajusta el valor entre 0 (transparente) y 1 (opaco) */
+  transition: opacity 0.2s;
+}
+
+.slider-arrow:hover img {
+  opacity: 1; /* Al pasar el mouse, vuelve a ser opaco */
+}
+
+
+
+.proyecto-info {
+  flex: 1 1 0;
+  max-width: 600px;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.badge-año {
+  display: inline-block;
+  background-color: #fa5e5b;
+  color: white;
+  font-family: roc-grotesk, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  margin-bottom: 1rem;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  align-self: flex-start;
+}
+
+.proyecto-info h2 {
+  margin-top: 0;
+  color: #ed4845;
+  font-family: "roc-grotesk", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.proyecto-info p {
+  font-family: "roc-grotesk", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1rem;
+  color: #222;
+}
+
+.proyecto-info b {
+  color: #ed4845;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 0.75rem;
+  font-family: "roc-grotesk", sans-serif;
+}
+
+.descripcion-trabajo {
+  font-family: 'roc-grotesk', sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+  color: #e8413d;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+/* === municipal === */
+.slider-box-municipal {
+  background: #fff;
+  border-radius: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+  width: fit-content;
+  height: fit-content;
+}
+
+.slider-municipal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-municipal video {
+  width: 480px;   /* o el tamaño real de tu video */
+  height: 288px;
+  object-fit: contain;
+  border-radius: 16px;
+  background: #fff;
+  display: block;
+}
+/* === Utilidades === */
+body.sin-fondo {
+  background-image: none !important;
+}
+
+/* === Responsive === */
+@media (max-width: 900px) {
+  section {
+    padding: 20px 0 10px 0;
+  }
+
+  .proyecto-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    max-width: 120vw;
+  }
+
+  .slider,
+  .slider img,
+  .slider video {
+    max-width: 95vw;
+    max-height: 60vw;
+    width: 90vw;
+    height: 60vw;
+  }
+
+  .proyecto-info {
+    max-width: 95vw;
+  }
+}
+
 @media (max-width: 600px) {
   body {
     font-size: 14pt;
@@ -303,7 +489,6 @@ img {
     max-width: 100vw;
   }
 
-  /* Grilla de trabajos responsive */
   .grilla-trabajos {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -319,21 +504,4 @@ img {
   img {
     max-width: 95vw;
   }
-}
-
-body.sin-fondo {
-  background-image: none !important;
-}
-
-/* Libro Bauhaus */
-
-.descripcion-trabajo {
-  font-family: 'roc-grotesk', sans-serif;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  text-align: center;
-  color: #e8413d;
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
 }

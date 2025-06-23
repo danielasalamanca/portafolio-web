@@ -2,166 +2,70 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title><!-- Título del Proyecto --></title>
+  <title>Libro Bauhaus</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Fuentes y estilos globales -->
+  <link rel="icon" type="image/png" href="img/favicon.png">
   <link rel="stylesheet" href="https://use.typekit.net/rse8rry.css">
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    html, body {
-      height: 100%;
-      min-height: 100vh;
-      margin: 0;
-      padding: 0;
-      background: #f3ede3;
-    }
-    body {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    header {
-      flex-shrink: 0;
-      background-color: #f3ede3;
-      padding: 24px 32px 0 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .logo-header {
-      max-height: 40px;
-      height: 40px;
-      width: auto;
-    }
-    .menu-links {
-      display: flex;
-      gap: 16px;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-    .main-content {
-      flex: 1 1 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 0;
-    }
-    .proyecto-container {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 48px;
-      max-width: 1200px;
-      width: 100%;
-      margin: 0 auto;
-    }
-    .slider {
-      max-width: 350px;
-      width: 350px;
-      background: #ddd;
-      border-radius: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 350px;
-      /* Aquí va la imagen principal del proyecto */
-    }
-    .slider img {
-      width: 100%;
-      max-width: 320px;
-      border-radius: 24px;
-      display: block;
-      background: #f7f7f4;
-    }
-    .proyecto-info {
-      max-width: 520px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .proyecto-info h2 {
-      font-family: "roc-grotesk", sans-serif;
-      font-size: 2rem;
-      font-weight: 700;
-      margin: 0 0 18px 0;
-      color: #101010;
-      /* Título del proyecto */
-    }
-    .proyecto-info .label {
-      color: #ed4845;
-      font-family: "roc-grotesk", sans-serif;
-      font-weight: 400;
-      display: inline-block;
-      margin-bottom: 2px;
-    }
-    .proyecto-info p {
-      font-family: "roc-grotesk", sans-serif;
-      font-size: 1.15rem;
-      font-weight: 400;
-      color: #222;
-      margin: 0 0 10px 0;
-    }
-    footer {
-      flex-shrink: 0;
-      width: 100%;
-      text-align: center;
-      padding: 10px 0 6px 0;
-      background-color: #ddd;
-      font-family: "ff-real-headline-pro", sans-serif;
-      font-size: 8pt;
-      margin-top: auto;
-    }
-    @media (max-width: 900px) {
-      .main-content {
-        padding: 32px 0;
-      }
-      .proyecto-container {
-        flex-direction: column;
-        gap: 32px;
-        max-width: 98vw;
-      }
-      .slider, .slider img {
-        max-width: 95vw;
-      }
-      .proyecto-info {
-        max-width: 95vw;
-      }
-    }
-  </style>
 </head>
-<body>
+<body class="sin-fondo">
   <header>
-    <!-- Logo del sitio -->
     <a href="index.html">
       <img src="img/danielasalamanca.png" alt="danielasalamanca" class="logo-header" />
     </a>
-    <!-- Menú de navegación -->
     <ul class="menu-links">
-      <li><a href="trabajos.html">Trabajos</a></li>
+      <li><a href="trabajos.html" class="activo">Trabajos</a></li>
       <li><a href="about.html">Sobre mí</a></li>
       <li><a href="contacto.html">Contacto</a></li>
     </ul>
   </header>
 
-  <div class="main-content">
+  <section>
     <div class="proyecto-container">
-      <div class="slider">
-        <!-- Aquí va la imagen principal del proyecto -->
-        <!-- <img src="RUTA_DE_LA_IMAGEN" alt="Descripción de la imagen"> -->
+            <div class="slider">
+        <button class="slider-arrow left" onclick="prevImg()" aria-label="Anterior">
+          <img src="img/flechaiz.png" alt="Anterior">
+        </button>
+        <img id="slider-img" src="img/portadabauhaus.png" alt="Portada Libro Bauhaus">
+        <button class="slider-arrow right" onclick="nextImg()" aria-label="Siguiente">
+          <img src="img/flechade.png" alt="Siguiente">
+        </button>
       </div>
       <div class="proyecto-info">
-        <h2><!-- Título del Proyecto --></h2>
-        <p><span class="label">Año:</span> <!-- Año del proyecto --></p>
-        <p><span class="label">Descripción:</span><br>
-        <!-- Descripción del proyecto --></p>
-        <!-- Puedes agregar más campos como cliente, rol, links, etc. -->
-      </div>
+         <div class="proyecto-info">
+      <div class="badge-año">2023</div>
+      <h2>Rebranding Súbela News</h2>
+      <p>Libro ilustrado para niños que explora la Bauhaus de manera lúdica y educativa. A través de ilustraciones vibrantes y textos sencillos, los pequeños artistas descubren los principios del diseño y la arquitectura de la famosa escuela de diseño.</p>
     </div>
-  </div>
+    </div>
+  </section>
 
   <footer>
     <p>&copy; 2025 Daniela Salamanca</p>
   </footer>
+
+  <script>
+    const images = [
+      "img/subela2.png",
+      "img/subela1.png",
+      "img/subela3.png",
+      "img/subela4.png",
+      "img/subela5.png",
+    ];
+    let current = 0;
+    const sliderImg = document.getElementById('slider-img');
+    function showImg(idx) {
+      sliderImg.src = images[idx];
+    }
+    function prevImg() {
+      current = (current - 1 + images.length) % images.length;
+      showImg(current);
+    }
+    function nextImg() {
+      current = (current + 1) % images.length;
+      showImg(current);
+    }
+    showImg(current);
+  </script>
 </body>
 </html>
