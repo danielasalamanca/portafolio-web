@@ -577,6 +577,11 @@ a[href^="mailto:"]:hover {
   flex: 1;
 }
 
+.grupo-nombre label {
+  display: block;
+  margin-bottom: 0.3em;
+}
+
 .formulario-contacto input,
 .formulario-contacto textarea,
 .formulario-contacto select {
@@ -669,4 +674,23 @@ a.enlace-destacado {
 a.enlace-destacado:hover {
   color: #222;
   text-decoration: underline;
+}
+
+ /* efecto para la página de trabajos */
+ 
+.trabajo-item {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.trabajo-item:hover {
+  transform: translateY(-8px) scale(1.04);
+}
+
+.trabajo-item img {
+  transition: filter 0.2s, opacity 0.2s;
+}
+
+.trabajo-item:hover img {
+  filter: brightness(0.92) contrast(1.1);
+  opacity: 0.92;
 }
