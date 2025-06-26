@@ -82,7 +82,7 @@
         <!-- Imagen -->
         <img src="img/osodressup.png" alt="oso dressup" class="slide" style="display:block;">
         <!-- Video -->
-        <video src="img/oso.mov" controls class="slide" style="display:none;"></video>
+        <video src="img/oso.mov" controls class="slide" style="display:none;" autoplay muted></video>
         <!-- Flechas -->
         <button class="slider-arrow left" type="button">
           <img src="img/flechaiz.png" alt="Anterior">
@@ -112,11 +112,19 @@
     const slides = document.querySelectorAll('.slider-dressup .slide');
     let current = 0;
 
-    function showSlide(idx) {
+        function showSlide(idx) {
       slides.forEach((slide, i) => {
         slide.style.display = i === idx ? 'block' : 'none';
-        if (slide.tagName === 'VIDEO') slide.pause();
+        if (slide.tagName === 'VIDEO') {
+          slide.pause();
+          slide.currentTime = 0;
+        }
       });
+      // Si el slide actual es un video, reprodúcelo
+      const currentSlide = slides[idx];
+      if (currentSlide.tagName === 'VIDEO') {
+        currentSlide.play();
+      }
     }
 
     document.querySelector('.slider-dressup .slider-arrow.left').onclick = function() {
