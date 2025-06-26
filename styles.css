@@ -379,7 +379,7 @@ img {
   letter-spacing: 0.05em;
   text-align: center;
   color: #575756;
-  margin-top: 0.5rem;
+  margin-top: 0.1rem;
   font-size: 0.9rem;
 }
 /* === municipal === */
@@ -695,4 +695,15 @@ a.enlace-destacado:hover {
 .trabajo-item:hover img {
   filter: brightness(0.92) contrast(1.1);
   opacity: 0.92;
+}
+
+.proyecto-info p {
+  margin-top: 0.4em; /* Ajusta el margen superior */
+  margin-bottom: 0; /* Ajusta el margen inferior */
+line-height: 1.7;
+}
+
+.descripcion-trabajo {
+  margin-top: 0;
+  margin-bottom: 0.03em; /* Ajusta el margen inferior */
 }
