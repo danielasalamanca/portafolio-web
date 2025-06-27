@@ -447,7 +447,7 @@ body.sin-fondo {
     padding: 1rem;
   }
   .formulario-wrapper {
-    width: 100%;
+    max-width: 100%;
     margin-left: 0;
     justify-content: flex-start;
   }
@@ -555,6 +555,9 @@ a[href^="mailto:"]:hover {
 }
 
 .formulario-wrapper {
+  width: 510px;
+  max-width: 100%;
+  margin-left: auto;
   display: flex;
   justify-content: flex-end;
 }
@@ -568,18 +571,29 @@ a[href^="mailto:"]:hover {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 510px;
+  max-width: 100%;
+  margin-left: auto;
 }
 
 .grupo-nombre {
+  max-width: 100%;
   display: flex;
   gap: 1rem;
 }
 
 .grupo-nombre div {
   flex: 1;
+  min-width: 0;
+}
+
+.grupo-nombre input {
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .grupo-nombre label {
+  margin-left: 0;
   display: block;
   margin-bottom: 0.3em;
 }
@@ -623,6 +637,14 @@ a[href^="mailto:"]:hover {
   font-size: 0.85rem;
   color: #222;
 }
+
+.about-section h1 {
+  font-family: avory-i-pe, sans-serif;
+  font-weight: 800;
+  font-size: 1.8rem;
+  color: #ed4845; /* Cambia este valor por el color que prefieras */
+}
+
 .about-container {
   display: flex;
   align-items: center;
