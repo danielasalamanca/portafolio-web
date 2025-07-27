@@ -724,7 +724,7 @@ line-height: 1.7;
   }
   header {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     padding: 10px 10px;
   }
   .logo-header {
@@ -761,6 +761,7 @@ line-height: 1.7;
     width: 100vw;
     padding: 0;
   }
+  
   .trabajo-item {
     display: flex;
     flex-direction: column;
