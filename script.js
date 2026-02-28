@@ -57,6 +57,9 @@ for (let i = 0; i < 3; i++) {
     // Tipografía aleatoria
     const fuente = tipografias[Math.floor(Math.random() * tipografias.length)];
     div.style.fontFamily = fuente;
+    // Rotación random sutil (-12° a +12°)
+    const rotation = (Math.random() - 0.5) * 24;
+    div.style.transform = `rotate(${rotation.toFixed(1)}deg)`;
     // Posición aleatoria
     const left = Math.random() * (containerWidth - 200);
     const top = Math.random() * (containerHeight - 100);
@@ -67,60 +70,65 @@ for (let i = 0; i < 3; i++) {
   });
 }
 
-// --- Rebote de burbujas en los bordes ---
+// --- Rebote orgánico de burbujas ---
 document.querySelectorAll('.burbuja').forEach(burbuja => {
-  let velocity = { x: 0, y: 0 };
-  let position = {
-    x: parseFloat(burbuja.style.left),
-    y: parseFloat(burbuja.style.top)
-  };
-  let animationFrame;
+  let vx = (Math.random() - 0.5) * 1.2;
+  let vy = (Math.random() - 0.5) * 1.2;
+  let px = parseFloat(burbuja.style.left);
+  let py = parseFloat(burbuja.style.top);
+  // Ángulo de deriva que rota lentamente para dar movimiento orgánico
+  let driftAngle = Math.random() * Math.PI * 2;
   let lastMouse = { x: 0, y: 0 };
-  let isMoving = false;
 
-  function animate() {
-    velocity.x *= 0.94;
-    velocity.y *= 0.94;
-    position.x += velocity.x;
-    position.y += velocity.y;
-    const width = burbuja.offsetWidth;
-    const height = burbuja.offsetHeight;
-    const containerRect = burbujasContainer.getBoundingClientRect();
-    const minX = 0;
-    const minY = 0;
-    const maxX = burbujasContainer.offsetWidth - width;
-    const maxY = burbujasContainer.offsetHeight - height;
-    if (position.x < minX) { position.x = minX; velocity.x *= -0.7; }
-    else if (position.x > maxX) { position.x = maxX; velocity.x *= -0.7; }
-    if (position.y < minY) { position.y = minY; velocity.y *= -0.7; }
-    else if (position.y > maxY) { position.y = maxY; velocity.y *= -0.7; }
-    burbuja.style.left = position.x + 'px';
-    burbuja.style.top = position.y + 'px';
-    if (Math.abs(velocity.x) > 0.5 || Math.abs(velocity.y) > 0.5) {
-      animationFrame = requestAnimationFrame(animate);
-    } else {
-      isMoving = false;
-    }
+  function tick() {
+    const w = burbuja.offsetWidth;
+    const h = burbuja.offsetHeight;
+    const maxX = burbujasContainer.offsetWidth - w;
+    const maxY = burbujasContainer.offsetHeight - h;
+
+    // Deriva orgánica: fuerza suave que cambia de dirección lentamente
+    driftAngle += 0.007 + Math.random() * 0.003;
+    vx += Math.cos(driftAngle) * 0.02;
+    vy += Math.sin(driftAngle) * 0.02;
+
+    // Fricción suave
+    vx *= 0.965;
+    vy *= 0.965;
+
+    // Límite de velocidad máxima
+    const speed = Math.hypot(vx, vy);
+    if (speed > 6) { vx = (vx / speed) * 6; vy = (vy / speed) * 6; }
+
+    px += vx;
+    py += vy;
+
+    // Rebote tipo spring: fuerza gradual al tocar bordes (no flip instantáneo)
+    if (px < 0)      { vx += -px * 0.3;        px = Math.max(px, -4); }
+    else if (px > maxX) { vx += (maxX - px) * 0.3; px = Math.min(px, maxX + 4); }
+    if (py < 0)      { vy += -py * 0.3;        py = Math.max(py, -4); }
+    else if (py > maxY) { vy += (maxY - py) * 0.3; py = Math.min(py, maxY + 4); }
+
+    burbuja.style.left = px + 'px';
+    burbuja.style.top = py + 'px';
+    requestAnimationFrame(tick);
   }
 
-  burbuja.addEventListener('mousemove', (e) => {
+  requestAnimationFrame(tick);
+
+  burbuja.addEventListener('mousemove', e => {
     const rect = burbuja.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const edgeThreshold = 40;
-    const dx = e.movementX || e.clientX - lastMouse.x;
-    const dy = e.movementY || e.clientY - lastMouse.y;
+    const localX = e.clientX - rect.left;
+    const localY = e.clientY - rect.top;
+    const threshold = 45;
+    const dx = e.movementX || (e.clientX - lastMouse.x);
+    const dy = e.movementY || (e.clientY - lastMouse.y);
     lastMouse = { x: e.clientX, y: e.clientY };
-    let hit = false;
-    if (x < edgeThreshold) { velocity.x = -dx * 3; hit = true; }
-    else if (x > rect.width - edgeThreshold) { velocity.x = dx * 3; hit = true; }
-    if (y < edgeThreshold) { velocity.y = -dy * 3; hit = true; }
-    else if (y > rect.height - edgeThreshold) { velocity.y = dy * 3; hit = true; }
-    if (hit && !isMoving) {
-      isMoving = true;
-      cancelAnimationFrame(animationFrame);
-      animationFrame = requestAnimationFrame(animate);
-    }
+
+    // Suma velocidad suavemente (aditivo, no sobreescribe)
+    if (localX < threshold)              vx += -dx * 1.8;
+    else if (localX > rect.width - threshold) vx +=  dx * 1.8;
+    if (localY < threshold)              vy += -dy * 1.8;
+    else if (localY > rect.height - threshold) vy +=  dy * 1.8;
   });
 });
 
