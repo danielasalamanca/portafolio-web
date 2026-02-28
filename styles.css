@@ -20,6 +20,12 @@ body {
   min-height: 100vh;
   display: flex;           /* <-- AGREGA ESTO */
   flex-direction: column;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+body.loaded {
+  opacity: 1;
 }
 
 /* === Títulos principales y subtítulos === */

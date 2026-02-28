@@ -1,5 +1,9 @@
 console.log("¡Bienvenida a mi portafolio!");
 
+window.addEventListener('load', () => {
+  document.body.classList.add('loaded');
+});
+
 const tipografias = [
   '"roc-grotesk", sans-serif',
   '"new-spirit-condensed", serif',
