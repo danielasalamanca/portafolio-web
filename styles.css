@@ -505,7 +505,7 @@ body.sin-fondo {
   }
   body {
     font-size: 14pt;
-    background-size: 250px auto;
+    background-size: 92vw auto;
     padding: 0 5px;
   }
   section {
@@ -742,17 +742,27 @@ line-height: 1.7;
   margin-bottom: 0.03em; /* Ajusta el margen inferior */
 }
 
-
-
-
-
-
 /* === Responsive general === */
 @media (max-width: 580px) {
   body {
     font-size: 14pt;
-    background-size: 230px auto;
-    padding: 0 5px;
+    padding: 0 10px;
+  }
+
+  /* === Imagen portafolio fondo (mobile) === */
+  body {
+    background-size: calc(100vw - 64px) auto; /* 32px margen a cada lado */
+    background-position: 90% 55%;
+  }
+  .dani-img {
+    width: 25vw;
+    right: 0vw;
+    bottom: 170px;
+  }
+  .typewriter {
+    left: 8%;
+    font-size: 1rem;
+    white-space: nowrap;
   }
   section {
     padding: 20px 5px;
