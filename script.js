@@ -38,6 +38,20 @@ function shuffle(array) {
   return array;
 }
 
+// Genera text-shadow en múltiples ángulos y radios para crear
+// un halo sólido de color que sigue la silueta exacta de las letras
+function stickerShadow(color) {
+  const parts = [];
+  [7, 5.5, 4, 2.5].forEach(r => {
+    for (let i = 0; i < 20; i++) {
+      const a = (i / 20) * Math.PI * 2;
+      parts.push(`${(Math.cos(a) * r).toFixed(1)}px ${(Math.sin(a) * r).toFixed(1)}px 0 ${color}`);
+    }
+  });
+  // la sombra paralela se aplica via filter: drop-shadow() en el CSS
+  return parts.join(', ');
+}
+
 const totalBurbujas = 3 * tipos.length;
 let colorList = [];
 while (colorList.length < totalBurbujas) {
@@ -52,8 +66,8 @@ for (let i = 0; i < 3; i++) {
     const div = document.createElement('div');
     div.className = `burbuja ${tipo.clase}`;
     div.textContent = tipo.texto;
-    // Color aleatorio
-    div.style.background = colorList[colorIndex++];
+    // Color aleatorio como sticker: halo de text-shadow siguiendo la forma de las letras
+    div.style.textShadow = stickerShadow(colorList[colorIndex++]);
     // Tipografía aleatoria
     const fuente = tipografias[Math.floor(Math.random() * tipografias.length)];
     div.style.fontFamily = fuente;
