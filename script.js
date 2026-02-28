@@ -8,6 +8,7 @@ const tipografias = [
   '"roc-grotesk", sans-serif',
   '"new-spirit-condensed", serif',
   '"neulis-neue", sans-serif',
+  '"avory-i-pe-variable, sans-serif"',
 ];
 
 const colores = [
@@ -42,9 +43,9 @@ function shuffle(array) {
 // un halo sólido de color que sigue la silueta exacta de las letras
 function stickerShadow(color) {
   const parts = [];
-  [7, 5.5, 4, 2.5].forEach(r => {
-    for (let i = 0; i < 20; i++) {
-      const a = (i / 20) * Math.PI * 2;
+  [12, 9, 7, 5, 3, 1.5].forEach(r => {
+    for (let i = 0; i < 100; i++) {
+      const a = (i / 100) * Math.PI * 2;
       parts.push(`${(Math.cos(a) * r).toFixed(1)}px ${(Math.sin(a) * r).toFixed(1)}px 0 ${color}`);
     }
   });
@@ -139,10 +140,34 @@ document.querySelectorAll('.burbuja').forEach(burbuja => {
     lastMouse = { x: e.clientX, y: e.clientY };
 
     // Suma velocidad suavemente (aditivo, no sobreescribe)
-    if (localX < threshold)              vx += -dx * 1.8;
-    else if (localX > rect.width - threshold) vx +=  dx * 1.8;
-    if (localY < threshold)              vy += -dy * 1.8;
-    else if (localY > rect.height - threshold) vy +=  dy * 1.8;
+    if (localX < threshold)              vx += -dx * 4.5;
+    else if (localX > rect.width - threshold) vx +=  dx * 3.5;
+    if (localY < threshold)              vy += -dy * 3.5;
+    else if (localY > rect.height - threshold) vy +=  dy * 3.5;
   });
+});
+
+// === Animación typewriter ===
+window.addEventListener('load', () => {
+  const parte1 = 'Daniela Salamanca Ríos';
+  const sep    = '  ♦  ';
+  const parte2 = 'Diseñadora Gráfica';
+  const todo   = parte1 + sep + parte2;
+
+  const el = document.getElementById('typewriter');
+  const s1 = document.createElement('span'); s1.className = 'tw-regular';
+  const s2 = document.createElement('span'); s2.className = 'tw-regular';
+  const s3 = document.createElement('span'); s3.className = 'tw-semibold';
+  el.append(s1, s2, s3);
+
+  let i = 0;
+  function typeChar() {
+    if (i < parte1.length)                        s1.textContent += todo[i];
+    else if (i < parte1.length + sep.length)      s2.textContent += todo[i];
+    else                                           s3.textContent += todo[i];
+    if (++i < todo.length) setTimeout(typeChar, 55);
+  }
+
+  setTimeout(typeChar, 600);
 });
 

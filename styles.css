@@ -13,7 +13,7 @@ body {
   font-weight: 400;
   line-height: 1.6;
   color: #333;
-  background-image: url('img/portafolio2.png');
+  background-image: url('img/portafolio_inicio2.png');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 500px auto;
@@ -200,6 +200,38 @@ section {
 
 section h1 {
   text-align: center;
+}
+
+/* === Typewriter === */
+.typewriter {
+  position: absolute;
+  top: 68%;
+  left: 32.5%;
+  font-family: "avory-i-pe", sans-serif;
+  font-size: 1rem;
+  color: #e8413d;
+  text-align: left;
+  letter-spacing: 0.03em;
+  margin: 0;
+  padding: 0;
+}
+.typewriter .tw-regular  { font-weight: 400; }
+.typewriter .tw-semibold { font-weight: 600; }
+
+/* === Imagen dani === */
+.dani-img {
+  position: absolute;
+  bottom: 110px;
+  right: calc(50% - 270px);
+  width: 180px;
+  height: auto;
+  margin: 0;
+  border-radius: 0;
+  transition: transform 0.25s ease;
+  cursor: pointer;
+}
+.dani-img:hover {
+  transform: scale(1.08);
 }
 
 /* === Footer === */
