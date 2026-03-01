@@ -319,6 +319,16 @@ img {
   border: none;
 }
 
+/* Slider que se adapta al formato natural de cada imagen */
+.slider.slider-fit {
+  height: auto;
+  overflow: visible;
+}
+.slider.slider-fit img {
+  height: auto;
+  object-fit: contain;
+}
+
 .slider-arrow {
   position: absolute;
   top: 50%;
@@ -436,6 +446,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .slider-municipal video {
@@ -851,6 +862,13 @@ line-height: 1.7;
   max-width: 380px;
   max-height: 380px;
   object-fit: cover;
+}
+  .slider.slider-fit,
+  .slider.slider-fit img {
+  aspect-ratio: unset;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
 }
   .slider video {
     width: 95vw;

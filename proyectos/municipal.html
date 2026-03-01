@@ -24,7 +24,13 @@
 <div class="proyecto-container">
     <div class="slider-box-municipal">
     <div class="slider-municipal">
-<video src="../img/municipal.mp4" controls autoplay muted></video>
+      <button class="slider-arrow left" onclick="prevVideo()" aria-label="Anterior">
+        <img src="../img/flechaiz.png" alt="Anterior">
+      </button>
+      <video id="slider-video" src="../img/municipal.mp4" controls autoplay muted></video>
+      <button class="slider-arrow right" onclick="nextVideo()" aria-label="Siguiente">
+        <img src="../img/flechade.png" alt="Siguiente">
+      </button>
     </div>
   </div>
   <div class="proyecto-info">
@@ -34,10 +40,11 @@
     </h2>
 
 <p>
-Este proyecto consistió en una interpretación visual de la Sinfonía del Nuevo Mundo de Antonín Dvořák, en una versión grabada por la Orquesta Filarmónica de Santiago. Cada fragmento de la obra fue abordado por un estudiante del Taller de Diseño Gráfico II de la Escuela de Diseño UDP, generando una experiencia visual colaborativa que tradujo el lenguaje sonoro en narrativas animadas.
-</p>
+Este proyecto consistió en una interpretación visual de la Sinfonía del Nuevo Mundo de Antonín Dvořák, en una versión grabada por la Orquesta Filarmónica de Santiago. 
+Cada fragmento de la obra fue abordado por un o una estudiante del Taller de Diseño Gráfico II impartido por Antonieta López y Camilo Zúñiga de la Escuela de Diseño UDP, generando una experiencia visual colaborativa que tradujo el lenguaje sonoro en narrativas animadas.
+En 2024 tuve la oportunidad de repetir la experiencia pero esta vez para la asignatura de Animación Digital Experimental junto a la profesora Valentina Vega.</p>
 <p>
-<b>Profesores a cargo:</b> Antonieta López y Camilo Zúñiga<br>
+<b>Profesores a cargo:</b> Antonieta López, Camilo Zúñiga y Valentina Vega<br>
 <b>Técnicas utilizadas:</b> Animación digital, interpretación visual de música, trabajo colaborativo
 </p>
   </div>
@@ -48,6 +55,28 @@ Este proyecto consistió en una interpretación visual de la Sinfonía del Nuevo
     <p>&copy; 2025 Daniela Salamanca</p>
   </footer>
 
+<script>
+    const videos = [
+      "../img/municipal.mp4",
+      "../img/municipal2.mp4",
+    ];
+    let currentVideo = 0;
+    const sliderVideo = document.getElementById('slider-video');
+    function showVideo(idx) {
+      sliderVideo.pause();
+      sliderVideo.src = videos[idx];
+      sliderVideo.load();
+      sliderVideo.play();
+    }
+    function prevVideo() {
+      currentVideo = (currentVideo - 1 + videos.length) % videos.length;
+      showVideo(currentVideo);
+    }
+    function nextVideo() {
+      currentVideo = (currentVideo + 1) % videos.length;
+      showVideo(currentVideo);
+    }
+  </script>
 <script>window.addEventListener("load",function(){document.body.classList.add("loaded");});</script>
 </body>
 </html>
