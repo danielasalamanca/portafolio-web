@@ -23,6 +23,8 @@ const tipos = [
   { clase: 'diseño', texto: 'Diseño' }
 ];
 
+const isMobile = window.matchMedia('(max-width: 580px)').matches;
+
 const burbujasContainer = document.querySelector('.burbujas');
 const containerWidth = burbujasContainer.offsetWidth || window.innerWidth;
 const containerHeight = burbujasContainer.offsetHeight || 400;
@@ -67,8 +69,14 @@ for (let i = 0; i < 3; i++) {
     const div = document.createElement('div');
     div.className = `burbuja ${tipo.clase}`;
     div.textContent = tipo.texto;
-    // Color aleatorio como sticker: halo de text-shadow siguiendo la forma de las letras
-    div.style.textShadow = stickerShadow(colorList[colorIndex++]);
+    // En mobile: fondo de color sólido (mucho más rápido). En desktop: halo text-shadow.
+    if (isMobile) {
+      div.style.backgroundColor = colorList[colorIndex];
+      div.style.color = '#fff';
+    } else {
+      div.style.textShadow = stickerShadow(colorList[colorIndex]);
+    }
+    colorIndex++;
     // Tipografía aleatoria
     const fuente = tipografias[Math.floor(Math.random() * tipografias.length)];
     div.style.fontFamily = fuente;
@@ -107,12 +115,14 @@ document.querySelectorAll('.burbuja').forEach(burbuja => {
     vy += Math.sin(driftAngle) * 0.02;
 
     // Fricción suave
-    vx *= 0.965;
-    vy *= 0.965;
+    const friction = isMobile ? 0.94 : 0.965;
+    vx *= friction;
+    vy *= friction;
 
     // Límite de velocidad máxima
+    const maxSpeed = isMobile ? 2 : 6;
     const speed = Math.hypot(vx, vy);
-    if (speed > 6) { vx = (vx / speed) * 6; vy = (vy / speed) * 6; }
+    if (speed > maxSpeed) { vx = (vx / speed) * maxSpeed; vy = (vy / speed) * maxSpeed; }
 
     px += vx;
     py += vy;

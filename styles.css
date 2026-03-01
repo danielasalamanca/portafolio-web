@@ -791,12 +791,15 @@ line-height: 1.7;
     margin-bottom: 0;
   }
 .burbuja {
-    min-width: 90px;
-    max-width: 90px;
-    height: 35px;
+    width: auto;
+    min-width: unset;
+    max-width: unset;
+    height: auto;
     font-size: 10pt;
     border-radius: 18px;
-    padding: 0 6px;
+    padding: 4px 10px;
+    filter: none;
+    will-change: transform;
   }
 
 .grilla-trabajos {
