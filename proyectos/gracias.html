@@ -4,12 +4,108 @@
   <meta charset="UTF-8" />
   <title>¡Gracias! – Daniela Salamanca</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="../img/favicon.png">
-  <!-- Adobe Fonts -->
   <link rel="stylesheet" href="https://use.typekit.net/rse8rry.css">
-  <!-- CSS local -->
   <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .gracias-scene {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 60vh;
+      gap: 2rem;
+    }
+
+    .gracias-letras {
+      display: flex;
+      gap: 0px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .letra-box {
+      width: 80px;
+      height: 80px;
+      background: #e8413d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "roc-grotesk", sans-serif;
+      font-weight: 500;
+      font-size: 2rem;
+      color: #fff;
+      animation: morfear 2s ease-in-out infinite backwards;
+    }
+
+    @keyframes morfear {
+      0%   { border-radius: 8px; }
+      50%  { border-radius: 50%; }
+      100% { border-radius: 8px; }
+    }
+
+    @keyframes rotar-der {
+      0%, 25%  { transform: rotate(0deg); }
+      35%, 55% { transform: rotate(90deg); }
+      65%, 100%{ transform: rotate(0deg); }
+    }
+
+    @keyframes rotar-izq {
+      0%, 25%  { transform: rotate(0deg); }
+      35%, 55% { transform: rotate(-90deg); }
+      65%, 100%{ transform: rotate(0deg); }
+    }
+
+    .letra-box:nth-child(odd) { animation-delay: 0s; }
+
+    .letra-box:nth-child(2) {
+      animation: morfear 2s 1s ease-in-out infinite backwards,
+                 rotar-der 3.5s 0s ease-in-out infinite;
+    }
+    .letra-box:nth-child(4) {
+      animation: morfear 2s 1s ease-in-out infinite backwards,
+                 rotar-izq 4.5s 1s ease-in-out infinite;
+    }
+    .letra-box:nth-child(6) {
+      animation: morfear 2s 1s ease-in-out infinite backwards,
+                 rotar-der 4s 0.5s ease-in-out infinite;
+    }
+
+    .gracias-texto {
+      text-align: center;
+      font-family: "roc-grotesk", sans-serif;
+      font-weight: 400;
+      font-size: 1rem;
+      color: #444;
+    }
+
+    .gracias-texto p {
+      margin-bottom: 1rem;
+    }
+
+    .gracias-texto a {
+      color: #e8413d;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .gracias-texto a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 580px) {
+      .letra-box {
+        width: 42px;
+        height: 42px;
+        font-size: 1.1rem;
+        gap: 6px;
+      }
+      .gracias-letras {
+        gap: 0px;
+      }
+    }
+  </style>
 </head>
 <body class="sin-fondo">
   <header>
@@ -23,11 +119,21 @@
     </ul>
   </header>
 
-  <section class="contacto-container">
-    <div class="contacto-texto">
-      <h2>¡Gracias por tu mensaje!</h2>
-      <p>Te responderé lo antes posible.</p>
-      <a href="../index.html">Volver al inicio</a>
+  <section>
+    <div class="gracias-scene">
+      <div class="gracias-letras">
+        <div class="letra-box">G</div>
+        <div class="letra-box">R</div>
+        <div class="letra-box">A</div>
+        <div class="letra-box">C</div>
+        <div class="letra-box">I</div>
+        <div class="letra-box">A</div>
+        <div class="letra-box">S</div>
+      </div>
+      <div class="gracias-texto">
+        <p>Te responderé lo antes posible.</p>
+        <a href="../index.html">Volver al inicio</a>
+      </div>
     </div>
   </section>
 
