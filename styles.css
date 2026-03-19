@@ -668,6 +668,22 @@ a[href^="mailto:"]:hover {
   color: #ed4845; /* Cambia este valor por el color que prefieras */
 }
 
+@keyframes letra-desde-arriba {
+  from {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#titulo-about span {
+  display: inline-block;
+  animation: letra-desde-arriba 0.25s ease forwards;
+}
+
 .about-container {
   display: flex;
   align-items: center;
@@ -680,6 +696,11 @@ a[href^="mailto:"]:hover {
   width: 250px;
   flex-shrink: 0;
   transform: rotate(-2deg);
+  transition: transform 0.3s ease;
+}
+
+.about-foto:hover {
+  transform: rotate(3deg);
 }
 
 .about-foto img {
