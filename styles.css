@@ -30,8 +30,8 @@ body.loaded {
 
 /* === Títulos principales y subtítulos === */
 section h1 {
-  font-family: "avory-i-pe", sans-serif;
-  font-weight: 800;
+  font-family: 'Lexend Deca', sans-serif;
+  font-weight: 400;
   font-size: 30pt;
   color: #e8413d;
   text-align: center;
@@ -161,7 +161,7 @@ header h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "roc-grotesk", "new-spirit-condensed", "neulis-neue", "avory-i-pe", sans-serif;
+  font-family: "roc-grotesk", "new-spirit-condensed", "neulis-neue", 'Lexend Deca', sans-serif;
   font-weight: 400;
   font-size: 20pt;
   font-style: normal;
@@ -207,7 +207,7 @@ section h1 {
   position: absolute;
   top: 68%;
   left: 32.5%;
-  font-family: "avory-i-pe", sans-serif;
+  font-family: 'Lexend Deca', sans-serif;
   font-size: 1rem;
   color: #e8413d;
   text-align: left;
@@ -280,7 +280,7 @@ img {
   display: block;
 }
 
-/* === Libro Bauhaus === */
+/* === Páginas de proyecto (slider, info) === */
 .proyecto-container {
   display: flex;
   flex-direction: row;
@@ -429,7 +429,7 @@ img {
   margin-top: 0.1rem;
   font-size: 0.9rem;
 }
-/* === municipal === */
+/* === Slider Municipal === */
 .slider-box-municipal {
   background: #fff;
   border-radius: 32px;
@@ -462,7 +462,9 @@ body.sin-fondo {
   background-image: none !important;
 }
 
-/* formulario de contacto */
+/* === Media Queries (max-width: 600px) === */
+
+/* Formulario de contacto */
 @media (max-width: 600px) {
   .contacto-container {
     flex-direction: column;
@@ -488,7 +490,7 @@ body.sin-fondo {
   }
 }
 
-/* slider de proyecto */
+/* Slider de proyecto */
 @media (max-width: 600px) {
   .proyecto-container {
     flex-direction: column;
@@ -509,7 +511,7 @@ body.sin-fondo {
   }
 }
 
-/* tamaño de fuente y espaciado */
+/* Tipografía y espaciado */
 @media (max-width: 600px) {
   section h1 {
     font-size: 1.5rem;
@@ -565,8 +567,8 @@ a[href^="mailto:"]:hover {
 }
 
 .contacto-texto h2 {
-  font-family: "avory-i-pe", sans-serif;
-  font-weight: 800;
+  font-family: 'Lexend Deca', sans-serif;
+  font-weight: 500;
   font-size: 1.8rem;
   color: #e8413d;
   text-align: left;
@@ -652,7 +654,7 @@ a[href^="mailto:"]:hover {
   background-color: #e6007e;
 }
 
-/* About */
+/* === Sobre mí === */
 .about-section {
   font-family: "roc-grotesk", sans-serif;
   font-weight: 400;
@@ -662,8 +664,8 @@ a[href^="mailto:"]:hover {
 }
 
 .about-section h1 {
-  font-family: avory-i-pe, sans-serif;
-  font-weight: 800;
+  font-family: 'Lexend Deca', sans-serif;
+  font-weight: 400;
   font-size: 1.8rem;
   color: #ed4845; /* Cambia este valor por el color que prefieras */
 }
@@ -736,8 +738,83 @@ a.enlace-destacado:hover {
   text-decoration: underline;
 }
 
- /* efecto para la página de trabajos */
- 
+/* === Lista de trabajos === */
+.lista-trabajos-seccion {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.lista-trabajos-titulo {
+  font-family: 'Lexend Deca', sans-serif;
+  font-weight: 400;
+  font-size: 3.5rem;
+  text-align: center;
+  margin: 40px 0 0 0;
+  color: #111;
+}
+
+.lista-trabajos {
+  display: flex;
+  flex-direction: column;
+  border-top: 1.5px solid #111;
+  margin-top: 20px;
+}
+
+.trabajo-fila-wrapper {
+  border-bottom: 1.5px solid #111;
+}
+
+.trabajo-fila {
+  display: block;
+  font-family: "bricolage-grotesque", sans-serif;
+  font-weight: 400;
+  font-size: 1.8rem;
+  color: #111;
+  text-decoration: none;
+  padding: 28px 20px;
+  transition: color 0.2s, padding-left 0.2s;
+}
+
+.trabajo-fila-wrapper:hover .trabajo-fila {
+  color: #ed4845;
+  font-weight: 700;
+  padding-left: 36px;
+}
+
+/* Panel de preview (hover expand) */
+.trabajo-preview {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s ease;
+}
+
+.trabajo-fila-wrapper:hover .trabajo-preview {
+  max-height: 800px;
+}
+
+.trabajo-preview-inner {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  padding: 0 20px 40px 20px;
+}
+
+.trabajo-preview-texto {
+  flex: 1;
+  font-family: "roc-grotesk", sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #333;
+}
+
+.trabajo-preview-img {
+  width: 380px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
 .trabajo-item {
   transition: transform 0.2s, box-shadow 0.2s;
 }
