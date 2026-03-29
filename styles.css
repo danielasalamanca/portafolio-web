@@ -221,8 +221,8 @@ section h1 {
 /* === Imagen dani === */
 .dani-img {
   position: absolute;
-  bottom: 110px;
-  right: calc(50% - 270px);
+  bottom: 150px;
+  right: calc(50% - 300px);
   width: 180px;
   height: auto;
   margin: 0;
