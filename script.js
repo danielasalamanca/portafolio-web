@@ -65,7 +65,7 @@ window.addEventListener('load', () => {
 
   // ── Engine ──────────────────────────────────────────────────────────────
   const engine = Engine.create();
-  engine.gravity.y = 0.7;
+  engine.gravity.y = 0.8;
 
   // ── Renderer (circles only — pills are HTML divs) ────────────────────────
   const render = Render.create({
@@ -179,19 +179,54 @@ window.addEventListener('load', () => {
       alignItems:      'center',
       justifyContent:  'center',
       boxSizing:       'border-box',
+      visibility:      'hidden',
     });
     pillLayer.appendChild(el);
-    pillDivs.push({ body, el });
+    pillDivs.push({ body, el, visible: false });
   }
 
-  // ── Sync pill divs to physics bodies every frame ─────────────────────────
+  // ── Mouse repulsion ──────────────────────────────────────────────────────
+  const PUSH_RADIUS = 100;   // px — radio de influencia del cursor
+  const PUSH_FORCE  = 0.2; // intensidad del empuje
+  let mouseX = -9999, mouseY = -9999;
+
+  function updateMouse(e) {
+    const rect = container.getBoundingClientRect();
+    const src  = e.touches ? e.touches[0] : e;
+    mouseX = src.clientX - rect.left;
+    mouseY = src.clientY - rect.top;
+  }
+  container.addEventListener('mousemove',  updateMouse, { passive: true });
+  container.addEventListener('touchmove',  updateMouse, { passive: true });
+  container.addEventListener('mouseleave', () => { mouseX = -9999; mouseY = -9999; });
+  container.addEventListener('touchend',   () => { mouseX = -9999; mouseY = -9999; });
+
+  // ── Sync pill divs + aplicar repulsión cada frame ────────────────────────
   Events.on(engine, 'afterUpdate', () => {
-    for (const { body, el } of pillDivs) {
+    for (const entry of pillDivs) {
+      const { body, el } = entry;
       const { x, y } = body.position;
       const angle    = body.angle;
       el.style.left      = x + 'px';
       el.style.top       = y + 'px';
       el.style.transform = `translate(-50%, -50%) rotate(${angle}rad)`;
+      if (!entry.visible) { el.style.visibility = 'visible'; entry.visible = true; }
+    }
+
+    // Empujar cuerpos dinámicos cercanos al cursor
+    const allBodies = Matter.Composite.allBodies(engine.world);
+    for (const b of allBodies) {
+      if (b.isStatic) continue;
+      const dx   = b.position.x - mouseX;
+      const dy   = b.position.y - mouseY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < PUSH_RADIUS && dist > 1) {
+        const strength = (1 - dist / PUSH_RADIUS) * PUSH_FORCE;
+        Body.applyForce(b, b.position, {
+          x: (dx / dist) * strength,
+          y: (dy / dist) * strength,
+        });
+      }
     }
   });
 
