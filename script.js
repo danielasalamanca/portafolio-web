@@ -137,9 +137,17 @@ window.addEventListener('load', () => {
     World.add(engine.world, body);
   }
 
+  function hexToRgba(hex, alpha) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r},${g},${b},${alpha})`;
+  }
+
   function spawnPill() {
-    const word = palabras[Math.floor(Math.random() * palabras.length)];
-    const font = fonts[Math.floor(Math.random() * fonts.length)];
+    const word  = palabras[Math.floor(Math.random() * palabras.length)];
+    const font  = fonts[Math.floor(Math.random() * fonts.length)];
+    const color = colores[Math.floor(Math.random() * colores.length)];
 
     measurer.font = `300 ${PILL_FONT_SIZE}px ${font}`;
     const tw = measurer.measureText(word).width;
@@ -160,27 +168,56 @@ window.addEventListener('load', () => {
     World.add(engine.world, body);
 
     const el = document.createElement('div');
-    el.textContent = word;
     Object.assign(el.style, {
-      position:        'absolute',
-      top:             '0',
-      left:            '0',
-      background:      '#1a1a1a',
-      color:           '#ffffff',
-      font:            `300 ${PILL_FONT_SIZE}px ${font}`,
-      borderRadius:    '999px',
-      padding:         `${isMobile ? 6 : 8}px 20px`,
-      pointerEvents:   'none',
-      whiteSpace:      'nowrap',
-      transformOrigin: 'center center',
-      width:           pw + 'px',
-      height:          ph + 'px',
-      display:         'flex',
-      alignItems:      'center',
-      justifyContent:  'center',
-      boxSizing:       'border-box',
-      visibility:      'hidden',
+      position:             'absolute',
+      top:                  '0',
+      left:                 '0',
+      background:           hexToRgba(color, 0.22),
+      backdropFilter:       'blur(14px) saturate(160%)',
+      webkitBackdropFilter: 'blur(14px) saturate(160%)',
+      border:               `1px solid ${hexToRgba(color, 0.45)}`,
+      boxShadow:            [
+                              '0 4px 24px rgba(0,0,0,0.10)',
+                              'inset 0 1.5px 0 rgba(255,255,255,0.80)',
+                              'inset 0 -1px 0 rgba(255,255,255,0.10)',
+                            ].join(','),
+      color:                '#3d3b39',
+      textShadow:           '0 1px 4px rgba(0,0,0,0.22)',
+      font:                 `300 ${PILL_FONT_SIZE}px ${font}`,
+      borderRadius:         '999px',
+      pointerEvents:        'none',
+      whiteSpace:           'nowrap',
+      transformOrigin:      'center center',
+      width:                pw + 'px',
+      height:               ph + 'px',
+      display:              'flex',
+      alignItems:           'center',
+      justifyContent:       'center',
+      boxSizing:            'border-box',
+      overflow:             'hidden',
+      visibility:           'hidden',
     });
+
+    // Brillo superior (simula el highlight de liquid glass)
+    const shine = document.createElement('span');
+    Object.assign(shine.style, {
+      position:     'absolute',
+      top:          '2px',
+      left:         '16%',
+      width:        '68%',
+      height:       '46%',
+      background:   'linear-gradient(to bottom, rgba(255,255,255,0.68), rgba(255,255,255,0))',
+      borderRadius: '999px',
+      pointerEvents:'none',
+      zIndex:       '0',
+    });
+    el.appendChild(shine);
+
+    // Texto encima del brillo
+    const label = document.createElement('span');
+    label.textContent = word;
+    Object.assign(label.style, { position: 'relative', zIndex: '1' });
+    el.appendChild(label);
     pillLayer.appendChild(el);
     pillDivs.push({ body, el, visible: false });
   }
