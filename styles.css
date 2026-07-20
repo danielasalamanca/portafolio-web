@@ -304,7 +304,7 @@ img {
   justify-content: center;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.10); 
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.16);
 }
 
 .slider img{
@@ -813,6 +813,7 @@ a.enlace-destacado:hover {
   flex-shrink: 0;
   object-fit: cover;
   border-radius: 8px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.16);
 }
 
 .trabajo-item {
