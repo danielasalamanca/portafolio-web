@@ -717,17 +717,18 @@ a[href^="mailto:"]:hover {
 
 .about-section p,
 .about-texto p {
-  font-family: "bricolage-grotesque", sans-serif;
-font-weight: 400;
-font-style: normal;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   font-size: 1rem;
   color: #000000;
 
 }
 
 a.enlace-destacado {
-  font-family: "bricolage-grotesque", sans-serif;
+  font-family: "Bricolage Grotesque", sans-serif;
   font-weight: 700;
+  font-style: normal;
   font-size: 1rem;
   color: #ed4845;
   text-decoration: none;
