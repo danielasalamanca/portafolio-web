@@ -65,7 +65,9 @@ window.addEventListener('load', () => {
 
   // ── Engine ──────────────────────────────────────────────────────────────
   const engine = Engine.create();
-  engine.gravity.y = 0.8;
+  // Una gravedad algo mayor hace que la composición se forme rápido,
+  // sin dejar los elementos suspendidos demasiado tiempo arriba.
+  engine.gravity.y = 1.6;
 
   // ── Renderer (circles only — pills are HTML divs) ────────────────────────
   const render = Render.create({
@@ -270,7 +272,10 @@ window.addEventListener('load', () => {
   // ── Spawn on interval ────────────────────────────────────────────────────
   function trySpawn(ts) {
     if (spawnCount >= maxObjects) return;
-    const interval = 200 + Math.random() * 300;
+    // Antes cada elemento esperaba entre 200 y 500 ms para aparecer: llenar
+    // la escena podía demorar más de 20 segundos. El ritmo actual la arma
+    // en pocos segundos y conserva una pequeña variación natural.
+    const interval = 70 + Math.random() * 90;
     if (ts - lastSpawn < interval) return;
     lastSpawn = ts;
     spawnCount++;
