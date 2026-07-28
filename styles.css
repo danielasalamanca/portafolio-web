@@ -715,20 +715,21 @@ a[href^="mailto:"]:hover {
   flex: 1;
 }
 
+.about-section p,
 .about-texto p {
-  font-family: "roc-grotesk", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 1.4rem;
-  color: #222;
+  font-family: "bricolage-grotesque-24", sans-serif;
+font-weight: 400;
+font-style: normal;
+  font-size: 1rem;
+  color: #000000;
+
 }
 
 a.enlace-destacado {
-  font-family: "roc-grotesk", sans-serif;
+  font-family: "bricolage-grotesque-24", sans-serif;
+  font-weight: 700;
   font-size: 1rem;
   color: #ed4845;
-  font-weight: 5
-  00;
   text-decoration: none;
   transition: color 0.2s;
 }
@@ -996,6 +997,7 @@ line-height: 1.7;
     height: auto;
     display: block;
   }
+  .about-section p,
   .about-texto p {
     font-size: 1rem;
     flex: 2;
