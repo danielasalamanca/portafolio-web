@@ -1,4 +1,4 @@
-// === Nuevo inicio (index2.html) ===
+// === Inicio (index.html) ===
 // Usa alIniciar() de script.js: las letras caen cuando termina la intro.
 alIniciar(() => {
   const hero = document.querySelector('.hero');
