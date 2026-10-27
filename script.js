@@ -31,8 +31,131 @@ const FRICTION           = 0.25;  // fricción tangencial (0=sin fricción, 1=m�
 const SETTLE_SPEED       = 0.4;   // velocidad total mínima para quedarse quieto
 const MAX_VEL            = 6.0;   // cap post-collision velocity
 
+// === Intro ===
+// Letras que aparecen de colores y se vuelven negras, destellos, y luego
+// círculos que crecen hasta cubrir la pantalla y revelan el inicio.
+const introLista = new Promise(resolve => {
+  const intro = document.getElementById('intro');
+  if (!intro) return resolve();
+
+  let vista = false;
+  try { vista = sessionStorage.getItem('introVista') === '1'; } catch (e) {}
+  const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (vista || sinMovimiento) { intro.remove(); return resolve(); }
+  try { sessionStorage.setItem('introVista', '1'); } catch (e) {}
+
+  document.body.classList.add('loaded', 'intro-activa');
+
+  const LETRA_MS   = 70;    // ritmo de escritura
+  const NEGRO_MS   = 450;   // cuánto dura el color antes de volverse negra
+  const PAUSA_MS   = 900;   // pausa con el texto completo
+  const CIRCULOS   = isMobile ? 10 : 16;
+  let terminado = false;
+
+  // ── Barra de carga ───────────────────────────────────────────────────────
+  const barra = intro.querySelector('.intro-carga span');
+  requestAnimationFrame(() => { barra.style.width = '85%'; });
+  const paginaCargada = new Promise(r => {
+    if (document.readyState === 'complete') r();
+    else window.addEventListener('load', r);
+  }).then(() => { barra.style.width = '100%'; });
+
+  // ── Letras ───────────────────────────────────────────────────────────────
+  const letras = [];
+  intro.querySelectorAll('.intro-linea').forEach(linea => {
+    for (const ch of linea.dataset.texto) {
+      const span = document.createElement('span');
+      span.className = 'intro-letra';
+      span.textContent = ch;
+      span.style.color = colores[Math.floor(Math.random() * colores.length)];
+      linea.appendChild(span);
+      letras.push(span);
+    }
+  });
+
+  // ── Destellos ────────────────────────────────────────────────────────────
+  const texto = intro.querySelector('.intro-texto');
+  const posiciones = [[-6, 12], [104, 8], [-3, 70], [102, 62], [18, -14], [80, 108], [46, 104], [60, -12]];
+  posiciones.forEach(([x, y], i) => {
+    const d = document.createElement('span');
+    d.className = 'intro-destello';
+    d.textContent = '✦';
+    d.style.left = x + '%';
+    d.style.top  = y + '%';
+    d.style.animationDelay = (i * 0.17) + 's';
+    texto.appendChild(d);
+  });
+
+  const escrito = new Promise(r => {
+    letras.forEach((span, i) => {
+      setTimeout(() => {
+        span.classList.add('visible');
+        setTimeout(() => span.classList.add('negra'), NEGRO_MS);
+      }, 300 + i * LETRA_MS);
+    });
+    setTimeout(() => {
+      intro.classList.add('intro-completa');
+      r();
+    }, 300 + letras.length * LETRA_MS + NEGRO_MS);
+  });
+
+  // ── Círculos que cubren la pantalla ──────────────────────────────────────
+  function crecerCirculo(x, y, diametro, color, delay, duracion) {
+    const c = document.createElement('span');
+    c.className = 'intro-circulo';
+    Object.assign(c.style, {
+      left: x + 'px', top: y + 'px',
+      width: diametro + 'px', height: diametro + 'px',
+      background: color,
+    });
+    intro.appendChild(c);
+    return c.animate(
+      [{ transform: 'translate(-50%,-50%) scale(0)' }, { transform: 'translate(-50%,-50%) scale(1)' }],
+      { duration: duracion, delay, easing: 'cubic-bezier(.55,0,.25,1)', fill: 'both' }
+    ).finished;
+  }
+
+  function cubrir() {
+    const W = window.innerWidth, H = window.innerHeight;
+    const diag = Math.hypot(W, H);
+    intro.classList.add('intro-cubriendo');
+    for (let i = 0; i < CIRCULOS; i++) {
+      const color = colores[i % colores.length];
+      crecerCirculo(Math.random() * W, Math.random() * H,
+        diag * (0.3 + Math.random() * 0.4), color, i * 55, 700);
+    }
+    // Último círculo del color de fondo: deja la pantalla limpia
+    return crecerCirculo(W / 2, H * 0.6, diag * 2.1, '#f3ede3', CIRCULOS * 55 + 150, 800);
+  }
+
+  function terminar() {
+    if (terminado) return;
+    terminado = true;
+    document.body.classList.add('intro-fin');
+    intro.classList.add('intro-saliendo');
+    resolve();
+    setTimeout(() => {
+      intro.remove();
+      document.body.classList.remove('intro-activa', 'intro-fin');
+    }, 900);
+  }
+
+  Promise.all([escrito, paginaCargada])
+    .then(() => new Promise(r => setTimeout(r, PAUSA_MS)))
+    .then(() => { if (!terminado) return cubrir(); })
+    .then(terminar);
+
+  // Un clic salta la intro
+  intro.addEventListener('click', terminar);
+});
+
+// Ejecuta fn cuando la página cargó y la intro terminó
+function alIniciar(fn) {
+  window.addEventListener('load', () => introLista.then(fn));
+}
+
 // === Typewriter ===
-window.addEventListener('load', () => {
+alIniciar(() => {
   const parte1 = 'Daniela Salamanca Ríos';
   const sep    = '  ♦  ';
   const parte2 = 'Diseñadora Gráfica';
@@ -54,7 +177,7 @@ window.addEventListener('load', () => {
 });
 
 // === Canvas physics (Matter.js) ===
-window.addEventListener('load', () => {
+alIniciar(() => {
   const container = document.querySelector('.burbujas');
   if (!container) return;
 

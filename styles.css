@@ -1039,3 +1039,137 @@ line-height: 1.7;
     padding: 0.8px 0;
   }
 }
+
+/* === Intro animada (index) === */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: #f3ede3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition: opacity 0.6s ease;
+}
+.intro.intro-saliendo {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.intro-texto {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Lexend Deca', sans-serif;
+  font-weight: 300;
+  line-height: 0.92;
+  text-transform: uppercase;
+  color: #222;
+}
+
+.intro-fila {
+  display: flex;
+  align-items: center;
+  gap: 1.4vw;
+}
+
+.intro-linea {
+  display: block;
+  min-height: 0.92em;
+  font-size: clamp(44px, 10vw, 150px);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.intro-letra {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.12em);
+  transition: opacity 0.12s ease, transform 0.25s ease, color 0.45s ease;
+}
+.intro-letra.visible {
+  opacity: 1;
+  transform: none;
+}
+.intro-letra.negra {
+  color: #222 !important;
+}
+
+.intro-lateral {
+  font-family: "roc-grotesk", sans-serif;
+  font-size: clamp(10px, 0.9vw, 14px);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.intro-destello {
+  position: absolute;
+  font-size: clamp(10px, 1.1vw, 18px);
+  color: #222;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.intro-completa .intro-lateral { opacity: 1; }
+.intro-completa .intro-destello {
+  animation: intro-destello 1.6s ease-in-out infinite;
+}
+
+@keyframes intro-destello {
+  0%, 100% { opacity: 0;   transform: scale(0.4) rotate(0deg); }
+  50%      { opacity: 0.8; transform: scale(1) rotate(45deg); }
+}
+
+.intro-carga {
+  position: absolute;
+  left: 30px;
+  bottom: 30px;
+  width: 160px;
+  height: 2px;
+  background: rgba(34, 34, 34, 0.12);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: opacity 0.3s ease;
+}
+.intro-carga span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: #e8413d;
+  transition: width 1.8s cubic-bezier(.25,.8,.25,1);
+}
+.intro-cubriendo .intro-carga { opacity: 0; }
+
+.intro-circulo {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+/* Mientras la intro está activa, Dani espera para aparecer con un "pop" */
+body.intro-activa:not(.intro-fin) .dani-img { opacity: 0; }
+body.intro-fin .dani-img {
+  animation: intro-pop 0.7s cubic-bezier(.34,1.56,.64,1) 0.2s both;
+}
+@keyframes intro-pop {
+  from { opacity: 0; transform: scale(0) rotate(-12deg); }
+  to   { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+@media (max-width: 580px) {
+  .intro-linea { font-size: 13vw; }
+  .intro-fila  { position: static; }
+  .intro-lateral {
+    position: absolute;
+    font-size: 10px;
+  }
+  .intro-fila .intro-lateral:first-child { top: -2.4em; left: 0; }
+  .intro-fila .intro-lateral:last-child  { bottom: -2.4em; right: 0; }
+  .intro-carga { left: 16px; bottom: 20px; width: 120px; }
+}
