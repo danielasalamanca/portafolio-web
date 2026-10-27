@@ -1,0 +1,262 @@
+/* === Nuevo inicio (index2.html) — diseño de Figma === */
+body.inicio2 {
+  background: #fbf9f3;
+  background-image: none;
+  padding: 0;
+  overflow: hidden;
+}
+
+.visualmente-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.hero {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────── */
+.hero-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 26px 0 43px;
+  background: none;
+}
+
+.hero-nombre {
+  font-family: "neulis-neue", sans-serif;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.4;
+  color: #000;
+  text-decoration: none;
+}
+
+.hero-menu {
+  display: flex;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hero-menu a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 34px;
+  box-sizing: border-box;
+  border: 0.5px solid #a4a4a4;
+  border-radius: 20px;
+  font-family: "neulis-neue", sans-serif;
+  font-size: 16px;
+  color: #000;
+  text-decoration: none;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.hero-menu a:hover {
+  background-color: #94b0ff;
+  border-color: #94b0ff;
+  color: #fff;
+}
+
+/* ── PORTAFOLIO ─────────────────────────────────────────────────────── */
+/* Bloque de letras centrado; mantiene la proporción del diseño (730 × 518) */
+.hero {
+  --ancho: min(57vw, 87svh);              /* ancho del bloque PORTAFOLIO */
+  --alto: calc(var(--ancho) / 1.41033);   /* alto, según la proporción del diseño */
+}
+
+.portafolio {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--ancho);
+  aspect-ratio: 730.066 / 517.657;
+  /* En el diseño el bloque está 30px a la izquierda del centro */
+  transform: translate(-54.1%, -50%);
+}
+
+.letra {
+  position: absolute;
+  display: block;
+  background-color: #94b0ff;
+  -webkit-mask: var(--mask) center / 100% 100% no-repeat;
+          mask: var(--mask) center / 100% 100% no-repeat;
+  opacity: 0;
+  transition: background-color 0.3s ease, translate 0.35s cubic-bezier(.34,1.56,.64,1), rotate 0.35s cubic-bezier(.34,1.56,.64,1);
+  cursor: default;
+}
+
+.hero.entrar .letra {
+  animation: letra-cae 0.9s cubic-bezier(.34,1.45,.64,1) calc(var(--i) * 70ms) both;
+}
+
+.letra:hover,
+.letra.empujada {
+  translate: 0 -6%;
+  rotate: -4deg;
+}
+
+@keyframes letra-cae {
+  0%   { opacity: 0; transform: translateY(-120vh) rotate(-10deg); }
+  60%  { opacity: 1; }
+  100% { opacity: 1; transform: none; }
+}
+
+/* ── Dani ───────────────────────────────────────────────────────────── */
+/* Lienzo de las poses (1350 × 1350). Su posición reproduce la del diseño:
+   la cabeza queda donde estaba en Figma, medida desde el bloque de letras. */
+.dani {
+  position: absolute;
+  left: calc(50% + var(--ancho) * 0.3259);
+  top: calc(50% + var(--alto) * 0.047);
+  width: calc(var(--ancho) * 0.5835);
+  z-index: 2;
+  opacity: 0;
+}
+.dani.arrastrando { z-index: 4; }
+
+.hero.entrar .dani {
+  animation: dani-sube 0.9s cubic-bezier(.34,1.4,.64,1) 0.75s both;
+}
+
+.dani-mover {
+  transform-origin: 50% 85%;
+  will-change: transform;
+}
+
+.dani-figura {
+  position: relative;
+  aspect-ratio: 1;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  /* El SVG corta la polera abajo: se desvanece por si la arrastran hacia arriba */
+  -webkit-mask: linear-gradient(to bottom, #000 88%, transparent 100%);
+          mask: linear-gradient(to bottom, #000 88%, transparent 100%);
+}
+.dani.arrastrando .dani-figura { cursor: grabbing; }
+
+.dani-figura img,
+.dani-figura .pose {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  pointer-events: none;
+}
+
+.dani-figura .pose { display: none; overflow: visible; }
+.dani-figura[data-pose="normal"]   .pose-normal,
+.dani-figura[data-pose="saluda"]   .pose-saluda,
+.dani-figura[data-pose="sorpresa"] .pose-sorpresa,
+.dani-figura[data-pose="celebra"]  .pose-celebra { display: block; }
+
+.dani-figura .ojo {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* ── Burbuja de diálogo ─────────────────────────────────────────────── */
+.dani-burbuja {
+  position: absolute;
+  left: 50%;
+  bottom: 93%;
+  z-index: 1;
+  margin: 0;
+  max-width: min(300px, 80vw);
+  width: max-content;
+  padding: 12px 18px;
+  background: #fff;
+  border: 0.5px solid #a4a4a4;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  font-family: "neulis-neue", sans-serif;
+  font-size: 15px;
+  line-height: 1.35;
+  color: #000;
+  text-align: center;
+  translate: -50% 0;
+  opacity: 0;
+  scale: 0.6;
+  transform-origin: 50% 100%;
+  transition: opacity 0.2s ease, scale 0.35s cubic-bezier(.34,1.56,.64,1);
+  pointer-events: none;
+}
+.dani-burbuja::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border-right: 0.5px solid #a4a4a4;
+  border-bottom: 0.5px solid #a4a4a4;
+  transform: translateX(-50%) rotate(45deg);
+}
+.dani-burbuja.visible {
+  opacity: 1;
+  scale: 1;
+  pointer-events: auto;
+}
+.dani-burbuja a {
+  color: #4f74e3;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@keyframes dani-sube {
+  from { opacity: 1; transform: translateY(70%); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Móvil ──────────────────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .hero-header {
+    flex-direction: column;
+    gap: 14px;
+    padding: 22px 16px 0;
+  }
+  .hero-nombre { font-size: 24px; }
+  .hero-menu   { gap: 8px; }
+  .hero-menu a { width: auto; padding: 0 16px; font-size: 14px; height: 32px; }
+
+  .hero { --ancho: calc(100vw - 48px); }
+  .portafolio {
+    top: 36%;
+    transform: translate(-50%, -50%);
+  }
+  /* En móvil Dani se asoma desde el borde inferior de la pantalla */
+  .dani {
+    left: auto;
+    right: calc(6% - min(90vw, 56svh) * 0.12);
+    top: auto;
+    bottom: -6%;
+    width: min(90vw, 56svh);
+  }
+  .dani-burbuja { font-size: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .letra, .dani { opacity: 1; }
+  .hero.entrar .letra, .hero.entrar .dani { animation: none; }
+}
