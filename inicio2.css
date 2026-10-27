@@ -20,6 +20,8 @@ body.inicio2 {
   height: 100vh;
   height: 100svh;
   overflow: hidden;
+  /* En el celular, arrastrar el dedo dibuja la estela (el zoom sigue permitido) */
+  touch-action: pinch-zoom;
 }
 
 /* ── Header ─────────────────────────────────────────────────────────── */
@@ -75,6 +77,32 @@ body.inicio2 {
   color: #fff;
 }
 
+/* ── Estela de íconos ───────────────────────────────────────────────── */
+/* Círculos de color con un ícono de diseño que va dejando el cursor */
+.estela {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.estela-circulo {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tam);
+  height: var(--tam);
+  margin: calc(var(--tam) / -2) 0 0 calc(var(--tam) / -2);
+  border-radius: 50%;
+}
+
+.estela-icono {
+  width: 56%;
+  height: 56%;
+}
+
 /* ── PORTAFOLIO ─────────────────────────────────────────────────────── */
 /* Bloque de letras centrado; mantiene la proporción del diseño (730 × 518) */
 .hero {
@@ -84,6 +112,7 @@ body.inicio2 {
 
 .portafolio {
   position: absolute;
+  z-index: 1;
   left: 50%;
   top: 50%;
   width: var(--ancho);

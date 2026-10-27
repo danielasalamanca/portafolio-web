@@ -16,7 +16,90 @@ alIniciar(() => {
   });
 
   iniciarDani(hero);
+  iniciarEstela(hero);
 });
+
+// === Estela de íconos ===
+// Inspirada en dejiajetomobi.com: al mover el cursor (o el dedo) van quedando
+// círculos de color con íconos de diseño, que aparecen con un pop y se van solos.
+// Íconos: Phosphor Icons (MIT), ver img/iconos/LICENSE.txt
+function iniciarEstela(hero) {
+  const capa = hero.querySelector('.estela');
+  if (!capa || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const ICONOS = [
+    'pen-nib', 'palette', 'bezier-curve', 'text-aa', 'paint-brush', 'eyedropper',
+    'book-open', 'ruler', 'swatches', 'crop', 'shapes', 'pencil-simple',
+    'paint-bucket', 'magic-wand', 'highlighter', 'compass-tool', 'drop', 'camera',
+    'scissors', 'selection-all', 'sparkle', 'heart', 'star', 'smiley',
+  ];
+  // [fondo, ícono]: colores de la paleta del sitio con un tono más intenso para el ícono.
+  // El celeste es distinto al azul de las letras para que los círculos se distingan.
+  const COLORES = [
+    ['#f9da74', '#8a5a00'],
+    ['#9ad8f5', '#0b5fb3'],
+    ['#de97c9', '#a3196f'],
+    ['#b9e3a3', '#2f7d1e'],
+    ['#efd6fb', '#7b2fc9'],
+    ['#fd7591', '#8f0c2c'],
+  ];
+  const MAXIMO = 140;         // círculos en pantalla a la vez
+  const VIDA_MS = 1600;       // cuánto queda cada círculo antes de irse
+
+  // Los íconos se insertan como SVG en línea (fill="currentColor") para teñirlos
+  let svgs = [];
+  Promise.all(ICONOS.map(n =>
+    fetch(`img/iconos/${n}.svg`).then(r => r.ok ? r.text() : '')
+  )).then(lista => { svgs = lista.filter(Boolean); });
+
+  let i = 0, ultimoX = null, ultimoY = null;
+
+  function soltarCirculo(x, y, tam) {
+    if (!svgs.length) return;
+    const circulo = document.createElement('span');
+    circulo.className = 'estela-circulo';
+    const [fondo, tinta] = COLORES[i % COLORES.length];
+    circulo.style.cssText =
+      `--tam:${tam}px; left:${x}px; top:${y}px; background:${fondo}; color:${tinta};`;
+    circulo.innerHTML = svgs[i % svgs.length];
+    circulo.firstElementChild.classList.add('estela-icono');
+    capa.appendChild(circulo);
+    i++;
+
+    // Nace pequeño bajo el cursor y crece hasta su tamaño
+    const giro = (Math.random() - 0.5) * 30;
+    circulo.animate(
+      [{ transform: `scale(0.3) rotate(${giro - 20}deg)` }, { transform: `scale(1) rotate(${giro}deg)` }],
+      { duration: 650, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'forwards' }
+    );
+    circulo.animate(
+      [{ transform: `scale(1) rotate(${giro}deg)` }, { transform: `scale(0) rotate(${giro + 30}deg)` }],
+      { duration: 400, delay: VIDA_MS, easing: 'ease-in', fill: 'forwards' }
+    ).finished.then(() => circulo.remove());
+
+    while (capa.childElementCount > MAXIMO) capa.firstElementChild.remove();
+  }
+
+  addEventListener('pointermove', e => {
+    const r = capa.getBoundingClientRect();
+    const x = e.clientX - r.left, y = e.clientY - r.top;
+    const tam = innerWidth < 700 ? 40 : 56;
+    if (ultimoX === null) { ultimoX = x; ultimoY = y; }
+    // Un círculo cada cierta distancia, superpuestos como una cadena
+    const paso = tam * 0.6;
+    let d = Math.hypot(x - ultimoX, y - ultimoY);
+    while (d >= paso) {
+      ultimoX += (x - ultimoX) * (paso / d);
+      ultimoY += (y - ultimoY) * (paso / d);
+      soltarCirculo(ultimoX, ultimoY, tam);
+      d = Math.hypot(x - ultimoX, y - ultimoY);
+    }
+  }, { passive: true });
+
+  // Al salir de la ventana se corta la cadena, para no unir puntos lejanos
+  document.addEventListener('pointerleave', () => { ultimoX = ultimoY = null; });
+  addEventListener('blur', () => { ultimoX = ultimoY = null; });
+}
 
 function colorearLetra(letra) {
   letra.style.backgroundColor = colores[Math.floor(Math.random() * colores.length)];
