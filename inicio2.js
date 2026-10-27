@@ -199,7 +199,14 @@ function iniciarDani(hero) {
     const estirar = Math.max(-0.08, Math.min(0.08, Math.abs(vy) * 0.004));
     mover.style.transform =
       `translate(${x}px, ${y}px) rotate(${giro}deg) scale(${1 - estirar}, ${1 + estirar})`;
+    // La burbuja sigue a Dani, pero sin salirse de la pantalla
     burbuja.style.transform = `translate(${x}px, ${y}px)`;
+    const b = burbuja.getBoundingClientRect();
+    const margen = 12;
+    const ajuste = b.left < margen ? margen - b.left
+                 : b.right > innerWidth - margen ? innerWidth - margen - b.right : 0;
+    if (ajuste) burbuja.style.transform = `translate(${x + ajuste}px, ${y}px)`;
+    burbuja.style.setProperty('--flecha', `${-ajuste}px`);
 
     // Pupilas hacia el cursor
     const dx = cursorX - cx, dy = cursorY - cy;

@@ -211,7 +211,8 @@ body.inicio2 {
   background: #fff;
   border-right: 0.5px solid #a4a4a4;
   border-bottom: 0.5px solid #a4a4a4;
-  transform: translateX(-50%) rotate(45deg);
+  /* --flecha la mantiene apuntando a Dani si la burbuja se corre */
+  transform: translateX(calc(-50% + var(--flecha, 0px))) rotate(45deg);
 }
 .dani-burbuja.visible {
   opacity: 1;
