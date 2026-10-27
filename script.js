@@ -38,11 +38,9 @@ const introLista = new Promise(resolve => {
   const intro = document.getElementById('intro');
   if (!intro) return resolve();
 
-  let vista = false;
-  try { vista = sessionStorage.getItem('introVista') === '1'; } catch (e) {}
   const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (vista || sinMovimiento) { intro.remove(); return resolve(); }
-  try { sessionStorage.setItem('introVista', '1'); } catch (e) {}
+  if (sinMovimiento) { intro.remove(); return resolve(); }
+  intro.hidden = false;
 
   document.body.classList.add('loaded', 'intro-activa');
 

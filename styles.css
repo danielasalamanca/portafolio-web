@@ -1053,6 +1053,9 @@ line-height: 1.7;
   cursor: pointer;
   transition: opacity 0.6s ease;
 }
+.intro[hidden] {
+  display: none;
+}
 .intro.intro-saliendo {
   opacity: 0;
   pointer-events: none;
