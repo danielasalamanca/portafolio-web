@@ -168,7 +168,41 @@ body.inicio2 {
 .dani-figura[data-pose="normal"]   .pose-normal,
 .dani-figura[data-pose="saluda"]   .pose-saluda,
 .dani-figura[data-pose="sorpresa"] .pose-sorpresa,
-.dani-figura[data-pose="celebra"]  .pose-celebra { display: block; }
+.dani-figura[data-pose="celebra"]  .pose-celebra,
+.dani-figura[data-pose="duerme"]   .pose-duerme { display: block; }
+
+/* ── Dormida: Z z z que suben desde la cabeza ───────────────────────── */
+.dani { container-type: inline-size; }
+
+.dani-zzz {
+  position: absolute;
+  left: 72%;
+  top: 4%;
+  z-index: 3;
+  pointer-events: none;
+}
+.dani-zzz span {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  font-family: "neulis-neue", sans-serif;
+  font-weight: 500;
+  color: #94b0ff;
+  opacity: 0;
+}
+.dani-zzz span:nth-child(1) { font-size: 9cqw; }
+.dani-zzz span:nth-child(2) { font-size: 7cqw; animation-delay: 0.8s !important; }
+.dani-zzz span:nth-child(3) { font-size: 5cqw; animation-delay: 1.6s !important; }
+
+.dani.dormida .dani-zzz span {
+  animation: zzz-sube 2.4s ease-out infinite;
+}
+
+@keyframes zzz-sube {
+  0%   { opacity: 0; transform: translate(0, 0) rotate(-10deg); }
+  20%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(9cqw, -20cqw) rotate(12deg); }
+}
 
 .dani-figura .ojo {
   transform-box: fill-box;

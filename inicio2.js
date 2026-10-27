@@ -33,7 +33,7 @@ function iniciarDani(hero) {
   const figura  = dani.querySelector('.dani-figura');
   const burbuja = dani.querySelector('.dani-burbuja');
   const letras  = [...hero.querySelectorAll('.letra')];
-  const POSES   = ['normal', 'saluda', 'sorpresa', 'celebra'];
+  const POSES   = ['normal', 'saluda', 'sorpresa', 'celebra', 'duerme'];
 
   // ── Poses (SVG en línea para poder mover los ojos) ───────────────────
   Promise.all(POSES.map(p =>
@@ -76,6 +76,29 @@ function iniciarDani(hero) {
       setTimeout(() => { parpado = 1; parpadear(); }, 130);
     }, 2500 + Math.random() * 3500);
   })();
+
+  // ── Sueño ────────────────────────────────────────────────────────────
+  // Si nadie interactúa por un rato, se queda dormida; cualquier
+  // movimiento la despierta con un pequeño sobresalto.
+  const DORMIR_MS = 8000;
+  let ultimaActividad = performance.now(), dormida = false;
+
+  function actividad() {
+    ultimaActividad = performance.now();
+    if (!dormida) return;
+    dormida = false;
+    dani.classList.remove('dormida');
+    pose('sorpresa', 700);
+  }
+  ['pointermove', 'pointerdown', 'keydown', 'wheel', 'touchstart'].forEach(tipo =>
+    addEventListener(tipo, actividad, { passive: true })
+  );
+
+  function dormir() {
+    dormida = true;
+    dani.classList.add('dormida');
+    pose('duerme');
+  }
 
   // ── Arrastre con resorte ─────────────────────────────────────────────
   let x = 0, y = 0, vx = 0, vy = 0, giro = 0;
@@ -159,15 +182,25 @@ function iniciarDani(hero) {
       if (Math.abs(y) < 0.05 && Math.abs(vy) < 0.05) y = vy = 0;
     }
 
+    if (!dormida && !arrastrando && figura.dataset.pose === 'normal' &&
+        performance.now() - ultimaActividad > DORMIR_MS) dormir();
+
     const r = figura.getBoundingClientRect();
     const cx = r.left + r.width * OJOS_X, cy = r.top + r.height * OJOS_Y;
 
-    // Se inclina con la velocidad y, un poco, hacia el cursor; al saludar se mece
-    let giroMeta = Math.max(-25, Math.min(25, vx * 1.6));
-    giroMeta += Math.max(-4, Math.min(4, (cursorX - cx) / innerWidth * 8));
-    if (encima && !arrastrando) giroMeta += Math.sin(t / 140) * 3;
-    giro += (giroMeta - giro) * 0.2;
-    const estirar = Math.max(-0.08, Math.min(0.08, Math.abs(vy) * 0.004));
+    // Se inclina con la velocidad y, un poco, hacia el cursor; al saludar se mece.
+    // Dormida, cabecea hacia un lado y respira despacio.
+    let giroMeta, respira = 0;
+    if (dormida) {
+      giroMeta = 5 + Math.sin(t / 1400) * 1.5;
+      respira = Math.sin(t / 700) * 0.012;
+    } else {
+      giroMeta = Math.max(-25, Math.min(25, vx * 1.6));
+      giroMeta += Math.max(-4, Math.min(4, (cursorX - cx) / innerWidth * 8));
+      if (encima && !arrastrando) giroMeta += Math.sin(t / 140) * 3;
+    }
+    giro += (giroMeta - giro) * (dormida ? 0.03 : 0.2);
+    const estirar = Math.max(-0.08, Math.min(0.08, Math.abs(vy) * 0.004)) + respira;
     mover.style.transform =
       `translate(${x}px, ${y}px) rotate(${giro}deg) scale(${1 - estirar}, ${1 + estirar})`;
     // La burbuja sigue a Dani, pero sin salirse de la pantalla
