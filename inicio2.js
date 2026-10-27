@@ -44,7 +44,7 @@ function iniciarEstela(hero) {
     ['#fd7591', '#8f0c2c'],
   ];
   const MAXIMO = 140;         // círculos en pantalla a la vez
-  const VIDA_MS = 1600;       // cuánto queda cada círculo antes de irse
+  const VIDA_MS = 900;        // cuánto queda cada círculo antes de irse
 
   // Los íconos se insertan como SVG en línea (fill="currentColor") para teñirlos
   let svgs = [];
@@ -74,7 +74,7 @@ function iniciarEstela(hero) {
     );
     circulo.animate(
       [{ transform: `scale(1) rotate(${giro}deg)` }, { transform: `scale(0) rotate(${giro + 30}deg)` }],
-      { duration: 400, delay: VIDA_MS, easing: 'ease-in', fill: 'forwards' }
+      { duration: 300, delay: VIDA_MS, easing: 'ease-in', fill: 'forwards' }
     ).finished.then(() => circulo.remove());
 
     while (capa.childElementCount > MAXIMO) capa.firstElementChild.remove();
@@ -163,7 +163,7 @@ function iniciarDani(hero) {
   // ── Sueño ────────────────────────────────────────────────────────────
   // Si nadie interactúa por un rato, se queda dormida; cualquier
   // movimiento la despierta con un pequeño sobresalto.
-  const DORMIR_MS = 8000;
+  const DORMIR_MS = 5000;
   let ultimaActividad = performance.now(), dormida = false;
 
   function actividad() {
@@ -265,7 +265,9 @@ function iniciarDani(hero) {
       if (Math.abs(y) < 0.05 && Math.abs(vy) < 0.05) y = vy = 0;
     }
 
-    if (!dormida && !arrastrando && figura.dataset.pose === 'normal' &&
+    // También se duerme si el cursor quedó quieto encima de ella (saludando)
+    const pose_ = figura.dataset.pose;
+    if (!dormida && !arrastrando && (pose_ === 'normal' || pose_ === 'saluda') &&
         performance.now() - ultimaActividad > DORMIR_MS) dormir();
 
     const r = figura.getBoundingClientRect();
