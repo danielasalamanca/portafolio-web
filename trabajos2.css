@@ -88,45 +88,6 @@ body.trabajos2.detalle-abierto { overflow: hidden; }
   background: var(--tinta);
 }
 
-/* ── Filtros ────────────────────────────────────────────────────────── */
-.t2-filtros {
-  margin: 34px auto 0;
-  max-width: 1100px;
-  padding: 0 20px;
-}
-
-.t2-filtros ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 6px 8px;
-  list-style: none;
-  margin: 12px 0 0;
-  padding: 0;
-}
-
-.t2-filtros button {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  height: 34px;
-  padding: 0 14px;
-  border: 0;
-  border-radius: 20px;
-  background: transparent;
-  font: inherit;
-  font-size: 15px;
-  color: #6b6b6b;
-  cursor: pointer;
-  transition: background-color 0.25s ease, color 0.25s ease;
-}
-.t2-filtros button:hover { color: var(--tinta); }
-.t2-filtros button[aria-pressed="true"] {
-  background: var(--gris-suave);
-  color: var(--tinta);
-}
-
-.t2-letra,
 .obra-cat {
   display: inline-grid;
   place-items: center;
@@ -141,13 +102,13 @@ body.trabajos2.detalle-abierto { overflow: hidden; }
 }
 
 /* Un color de la paleta de la portada por categoría */
-[data-filtro="branding"],    .cat-branding    { --c-fondo: #f9da74; --c-tinta: #8a5a00; }
-[data-filtro="editorial"],   .cat-editorial   { --c-fondo: #9ad8f5; --c-tinta: #0b5fb3; }
-[data-filtro="ilustracion"], .cat-ilustracion { --c-fondo: #de97c9; --c-tinta: #a3196f; }
-[data-filtro="packaging"],   .cat-packaging   { --c-fondo: #b9e3a3; --c-tinta: #2f7d1e; }
-[data-filtro="digital"],     .cat-digital     { --c-fondo: #efd6fb; --c-tinta: #7b2fc9; }
-[data-filtro="animacion"],   .cat-animacion   { --c-fondo: #fd7591; --c-tinta: #8f0c2c; }
-[data-filtro="tipografia"],  .cat-tipografia  { --c-fondo: #94b0ff; --c-tinta: #1d3a9a; }
+.cat-branding    { --c-fondo: #f9da74; --c-tinta: #8a5a00; }
+.cat-editorial   { --c-fondo: #9ad8f5; --c-tinta: #0b5fb3; }
+.cat-ilustracion { --c-fondo: #de97c9; --c-tinta: #a3196f; }
+.cat-packaging   { --c-fondo: #b9e3a3; --c-tinta: #2f7d1e; }
+.cat-digital     { --c-fondo: #efd6fb; --c-tinta: #7b2fc9; }
+.cat-animacion   { --c-fondo: #fd7591; --c-tinta: #8f0c2c; }
+.cat-tipografia  { --c-fondo: #94b0ff; --c-tinta: #1d3a9a; }
 
 /* ── Grilla tipo mosaico ────────────────────────────────────────────── */
 /* Sin JavaScript es una grilla simple; con JavaScript cada tarjeta se
@@ -172,10 +133,6 @@ body.trabajos2.detalle-abierto { overflow: hidden; }
   top: 0;
   left: 0;
   transition: transform 0.65s var(--resorte), opacity 0.3s ease;
-}
-.t2-grilla.mosaico .obra.oculta {
-  opacity: 0;
-  pointer-events: none;
 }
 
 .obra-tarjeta {
@@ -500,17 +457,6 @@ body.trabajos2.detalle-abierto { overflow: hidden; }
   .t2-nombre { font-size: 24px; }
   .t2-menu   { gap: 8px; }
   .t2-menu a { width: auto; padding: 0 16px; font-size: 14px; height: 32px; }
-
-  .t2-filtros { margin-top: 24px; padding: 0; }
-  .t2-filtros ul {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    overflow-x: auto;
-    padding: 0 16px 4px;
-    scrollbar-width: none;
-  }
-  .t2-filtros ul::-webkit-scrollbar { display: none; }
-  .t2-filtros li { flex: none; }
 
   .t2-grilla { --columnas: 2; --espacio: 12px; padding: 0 16px; margin-top: 28px; }
   .obra-tarjeta { border-radius: 18px; }

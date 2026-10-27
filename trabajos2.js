@@ -1,5 +1,5 @@
 // === Trabajos v2 (proyectos/trabajos2.html) ===
-// Grilla tipo mosaico con filtros y detalle de cada trabajo.
+// Grilla tipo mosaico y detalle de cada trabajo.
 (function () {
   const grilla = document.querySelector('.t2-grilla');
   if (!grilla) return;
@@ -8,15 +8,16 @@
   const sinMovimiento = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const esVideo = (src) => /\.(mp4|webm|mov)$/i.test(src);
 
-  // Letra y nombre de cada categoría, tomados de los botones de filtro
-  const CATEGORIAS = {};
-  document.querySelectorAll('.t2-filtros [data-filtro]').forEach((b) => {
-    if (b.dataset.filtro === 'todos') return;
-    CATEGORIAS[b.dataset.filtro] = {
-      letra: b.querySelector('.t2-letra').textContent,
-      nombre: b.textContent.replace(b.querySelector('.t2-letra').textContent, '').trim(),
-    };
-  });
+  // Letra y nombre de cada categoría (los colores están en trabajos2.css)
+  const CATEGORIAS = {
+    branding:    { letra: 'B', nombre: 'Branding' },
+    editorial:   { letra: 'E', nombre: 'Editorial' },
+    ilustracion: { letra: 'I', nombre: 'Ilustración' },
+    packaging:   { letra: 'P', nombre: 'Packaging' },
+    digital:     { letra: 'D', nombre: 'Digital' },
+    animacion:   { letra: 'A', nombre: 'Animación' },
+    tipografia:  { letra: 'T', nombre: 'Tipografía' },
+  };
 
   const crear = (etiqueta, clase, texto) => {
     const el = document.createElement(etiqueta);
@@ -54,7 +55,6 @@
     grilla.classList.add('mosaico');
     obras.forEach((obra) => {
       obra.style.width = anchoCol + 'px';
-      if (obra.classList.contains('oculta')) return;
       const col = alturas.indexOf(Math.min(...alturas));
       const x = parseFloat(estilo.paddingLeft) + col * (anchoCol + espacio);
       obra.style.transform = `translate(${x}px, ${alturas[col]}px)`;
@@ -79,21 +79,6 @@
     grilla.classList.add('entrar');
     setTimeout(() => grilla.classList.remove('entrar'), 800 + obras.length * 60);
   }
-
-  // ── Filtros ──────────────────────────────────────────────────────────
-  const filtros = [...document.querySelectorAll('.t2-filtros [data-filtro]')];
-  filtros.forEach((boton) => {
-    boton.addEventListener('click', () => {
-      const filtro = boton.dataset.filtro;
-      filtros.forEach((b) => b.setAttribute('aria-pressed', String(b === boton)));
-      obras.forEach((obra) => {
-        const ver = filtro === 'todos' || obra.cats.includes(filtro);
-        obra.classList.toggle('oculta', !ver);
-        obra.inert = !ver;
-      });
-      ordenar();
-    });
-  });
 
   // ── Al pasar el cursor: videos se reproducen, imágenes van cambiando ──
   function animarAlPasar(obra, tarjeta) {
@@ -247,11 +232,9 @@
     setTimeout(terminar, 250);
   }
 
-  // Anterior / siguiente entre los trabajos visibles con el filtro actual
+  // Anterior / siguiente trabajo
   function vecino(paso) {
-    const visibles = obras.filter((o) => !o.classList.contains('oculta'));
-    const lista = visibles.includes(actual) ? visibles : obras;
-    abrir(lista[(lista.indexOf(actual) + paso + lista.length) % lista.length]);
+    abrir(obras[(obras.indexOf(actual) + paso + obras.length) % obras.length]);
   }
 
   cerrarBoton.addEventListener('click', () => cerrar());
