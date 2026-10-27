@@ -26,7 +26,7 @@ function colorearLetra(letra) {
 
 // === Dani interactiva ===
 // Inspirada en sebg.ch: la mirada sigue el cursor, se puede agarrar y soltar
-// (vuelve a su lugar con un resorte), cambia de pose y habla en una burbuja.
+// (vuelve a su lugar con un resorte), cambia de pose y al llegar da la bienvenida.
 function iniciarDani(hero) {
   const dani    = hero.querySelector('.dani');
   const mover   = dani.querySelector('.dani-mover');
@@ -34,21 +34,6 @@ function iniciarDani(hero) {
   const burbuja = dani.querySelector('.dani-burbuja');
   const letras  = [...hero.querySelectorAll('.letra')];
   const POSES   = ['normal', 'saluda', 'sorpresa', 'celebra'];
-
-  const MENSAJES = {
-    hola:    '¡Hola! Soy Dani, diseñadora gráfica.',
-    pista:   'Psst… puedes arrastrarme.',
-    agarrar: ['¡Wiii!', '¡Uy, cuidado!', '¡Me mareo!', '¡A volar!'],
-    soltar:  ['¡Otra vez!', 'Ufff, qué viaje.', '¡De vuelta a casa!'],
-    clic: [
-      'Hago diseño editorial, branding e ilustración.',
-      'Mira mis <a href="proyectos/trabajos.html">trabajos</a>.',
-      '¿Quieres saber más? Lee <a href="proyectos/about.html">sobre mí</a>.',
-      '¿Hablamos? Escríbeme en <a href="proyectos/contacto.html">contacto</a>.',
-    ],
-  };
-  let indiceClic = 0;
-  const alAzar = lista => lista[Math.floor(Math.random() * lista.length)];
 
   // ── Poses (SVG en línea para poder mover los ojos) ───────────────────
   Promise.all(POSES.map(p =>
@@ -69,23 +54,13 @@ function iniciarDani(hero) {
     if (duracion) poseTimer = setTimeout(() => { figura.dataset.pose = 'normal'; }, duracion);
   }
 
-  // ── Burbuja ──────────────────────────────────────────────────────────
-  let burbujaTimer;
-  function decir(html, duracion = 0) {
-    burbuja.classList.remove('visible');
-    clearTimeout(burbujaTimer);
-    requestAnimationFrame(() => {
-      burbuja.innerHTML = html;
-      burbuja.classList.add('visible');
-    });
-    if (duracion) burbujaTimer = setTimeout(() => burbuja.classList.remove('visible'), duracion);
-  }
-
-  // Saludo al llegar (después de que sube) y luego la pista
+  // ── Saludo al llegar (después de que sube) ───────────────────────────
+  // Es el único texto: la burbuja se va sola o apenas la tocan
   setTimeout(() => {
     pose('saluda', 2200);
-    decir(MENSAJES.hola);
-    setTimeout(() => { if (!arrastrando) decir(MENSAJES.pista); }, 3800);
+    burbuja.textContent = 'Bienvenido/a';
+    burbuja.classList.add('visible');
+    setTimeout(() => burbuja.classList.remove('visible'), 3000);
   }, 1500);
 
   // ── Mirada y parpadeo ────────────────────────────────────────────────
@@ -117,6 +92,7 @@ function iniciarDani(hero) {
     ultimoX = e.clientX;
     ultimoY = e.clientY;
     dani.classList.add('arrastrando');
+    burbuja.classList.remove('visible');
   });
 
   figura.addEventListener('pointermove', e => {
@@ -124,10 +100,7 @@ function iniciarDani(hero) {
     const dx = e.clientX - ultimoX, dy = e.clientY - ultimoY;
     movido += Math.abs(dx) + Math.abs(dy);
     // Al empezar a moverla, se sorprende
-    if (movido > 6 && figura.dataset.pose !== 'sorpresa') {
-      pose('sorpresa');
-      decir(alAzar(MENSAJES.agarrar));
-    }
+    if (movido > 6 && figura.dataset.pose !== 'sorpresa') pose('sorpresa');
     vx = dx; vy = dy;
     x = e.clientX - inicioX;
     y = e.clientY - inicioY;
@@ -142,12 +115,10 @@ function iniciarDani(hero) {
     dani.classList.remove('arrastrando');
     if (movido > 6) {
       pose('celebra', 1400);
-      decir(alAzar(MENSAJES.soltar), 2500);
     } else {
-      // Clic: salta, celebra y cuenta algo nuevo
+      // Clic: salta y celebra
       vy = -14;
       pose('celebra', 900);
-      decir(MENSAJES.clic[indiceClic++ % MENSAJES.clic.length]);
     }
   }
   figura.addEventListener('pointerup', soltar);
