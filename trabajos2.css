@@ -6,6 +6,7 @@
   --gris-suave: #ece8dd;
   --azul: #94b0ff;
   --resorte: cubic-bezier(.34, 1.45, .64, 1);
+  --bricolage: "Bricolage Grotesque", "neulis-neue", sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -181,7 +182,9 @@ body.trabajos2.detalle-abierto { overflow: hidden; }
   padding: 7px 14px;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.92);
+  font-family: var(--bricolage);
   font-size: 14px;
+  font-weight: 600;
   line-height: 1.2;
   color: var(--tinta);
   white-space: nowrap;
@@ -198,30 +201,16 @@ body.trabajos2.detalle-abierto { overflow: hidden; }
   translate: -50% 0;
 }
 
-/* Letras de categoría en la esquina */
-.obra-cats {
-  position: absolute;
-  left: 14px;
-  bottom: 14px;
-  display: flex;
-  gap: 4px;
-  pointer-events: none;
-}
-.obra-cat {
-  width: 24px;
-  height: 24px;
-  border-radius: 7px;
-  font-size: 12px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
-}
 
-/* Entrada: las tarjetas suben una tras otra */
+/* Entrada: las tarjetas suben desde abajo de la pantalla, una tras otra,
+   un poco giradas y con un rebote al llegar (el orden lo calcula trabajos2.js) */
+.t2-grilla.entrar { overflow: clip; }
 .t2-grilla.entrar .obra-tarjeta {
-  animation: obra-sube 0.8s var(--resorte) calc(var(--i, 0) * 60ms) both;
+  animation: obra-sube 1.1s cubic-bezier(.3, 1.3, .5, 1) var(--retraso, 0ms) both;
 }
 @keyframes obra-sube {
-  from { opacity: 0; transform: translateY(60px) scale(0.92); }
-  to   { opacity: 1; transform: none; }
+  from { transform: translateY(100vh) rotate(var(--giro, 0deg)); }
+  to   { transform: none; }
 }
 
 /* ── Detalle del trabajo ────────────────────────────────────────────── */
@@ -332,13 +321,17 @@ body.trabajos2.detalle-abierto { overflow: hidden; }
 }
 .t2-detalle-info h2 {
   margin: 0;
-  font-size: 30px;
-  font-weight: 500;
+  font-family: var(--bricolage);
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   line-height: 1.15;
 }
 .t2-detalle-año {
   margin: 6px 0 14px;
+  font-family: var(--bricolage);
   font-size: 15px;
+  font-weight: 300;
   color: #6b6b6b;
 }
 .t2-detalle-cats {
@@ -357,7 +350,9 @@ body.trabajos2.detalle-abierto { overflow: hidden; }
   border-radius: 20px;
   background: var(--c-fondo);
   color: var(--c-tinta);
+  font-family: var(--bricolage);
   font-size: 13px;
+  font-weight: 500;
 }
 .t2-detalle-cats .obra-cat {
   width: 18px;
@@ -369,7 +364,9 @@ body.trabajos2.detalle-abierto { overflow: hidden; }
 }
 .t2-detalle-texto p {
   margin: 0 0 14px;
+  font-family: var(--bricolage);
   font-size: 15px;
+  font-weight: 400;
   line-height: 1.6;
   color: #3d3d3d;
 }
@@ -460,8 +457,6 @@ body.trabajos2.detalle-abierto { overflow: hidden; }
 
   .t2-grilla { --columnas: 2; --espacio: 12px; padding: 0 16px; margin-top: 28px; }
   .obra-tarjeta { border-radius: 18px; }
-  .obra-cats { left: 10px; bottom: 10px; }
-  .obra-cat { width: 20px; height: 20px; font-size: 10px; border-radius: 6px; }
   .obra-titulo { display: none; }
 
   .t2-visor { height: 52svh; }

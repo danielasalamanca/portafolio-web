@@ -4,7 +4,6 @@
   const grilla = document.querySelector('.t2-grilla');
   if (!grilla) return;
 
-  const obras = [...grilla.querySelectorAll('.obra')];
   const sinMovimiento = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const esVideo = (src) => /\.(mp4|webm|mov)$/i.test(src);
 
@@ -19,6 +18,14 @@
     tipografia:  { letra: 'T', nombre: 'Tipografía' },
   };
 
+  // Cada vez que se carga la página los trabajos salen en otro orden
+  const obras = [...grilla.querySelectorAll('.obra')];
+  for (let i = obras.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [obras[i], obras[j]] = [obras[j], obras[i]];
+  }
+  grilla.append(...obras);
+
   const crear = (etiqueta, clase, texto) => {
     const el = document.createElement(etiqueta);
     if (clase) el.className = clase;
@@ -26,19 +33,17 @@
     return el;
   };
 
-  // Prepara cada tarjeta: proporción, letras de categoría y datos
-  obras.forEach((obra, i) => {
+  // Prepara cada tarjeta: proporción, categorías y datos
+  obras.forEach((obra) => {
     obra.proporcion = parseFloat(obra.dataset.proporcion) || 1;
     obra.cats = obra.dataset.cats.split(/\s+/).filter((c) => CATEGORIAS[c]);
     obra.media = obra.dataset.media.split(',').map((s) => s.trim()).filter(Boolean);
     obra.style.setProperty('--proporcion', obra.proporcion);
-    obra.style.setProperty('--i', i);
+    // Llega un poco girada, cada una hacia un lado distinto
+    obra.style.setProperty('--giro', (Math.random() * 12 - 6).toFixed(1) + 'deg');
 
     const tarjeta = obra.querySelector('.obra-tarjeta');
     tarjeta.setAttribute('aria-label', obra.querySelector('.obra-titulo').textContent + ', ' + obra.dataset.año);
-    const cats = crear('span', 'obra-cats');
-    obra.cats.forEach((c) => cats.append(crear('span', 'obra-cat cat-' + c, CATEGORIAS[c].letra)));
-    tarjeta.append(cats);
     tarjeta.addEventListener('click', () => abrir(obra));
     animarAlPasar(obra, tarjeta);
   });
@@ -51,6 +56,7 @@
     const ancho = grilla.clientWidth - parseFloat(estilo.paddingLeft) - parseFloat(estilo.paddingRight);
     const anchoCol = (ancho - espacio * (columnas - 1)) / columnas;
     const alturas = new Array(columnas).fill(0);
+    const filas = new Array(columnas).fill(0);
 
     grilla.classList.add('mosaico');
     obras.forEach((obra) => {
@@ -59,6 +65,9 @@
       const x = parseFloat(estilo.paddingLeft) + col * (anchoCol + espacio);
       obra.style.transform = `translate(${x}px, ${alturas[col]}px)`;
       alturas[col] += anchoCol / obra.proporcion + espacio;
+      // Orden de llegada: de izquierda a derecha y luego hacia abajo
+      obra.retraso = col * 90 + filas[col]++ * 160;
+      obra.style.setProperty('--retraso', obra.retraso + 'ms');
     });
     grilla.style.height = Math.max(0, Math.max(...alturas) - espacio) + 'px';
   }
@@ -74,10 +83,11 @@
     espera = setTimeout(ordenar, 80);
   });
 
-  // Entrada escalonada; al terminar se quita para que el hover funcione
+  // Entrada: suben desde abajo una tras otra; al terminar se quita para que el hover funcione
   if (!sinMovimiento) {
     grilla.classList.add('entrar');
-    setTimeout(() => grilla.classList.remove('entrar'), 800 + obras.length * 60);
+    const ultima = Math.max(...obras.map((o) => o.retraso));
+    setTimeout(() => grilla.classList.remove('entrar'), ultima + 1300);
   }
 
   // ── Al pasar el cursor: videos se reproducen, imágenes van cambiando ──
