@@ -4,7 +4,7 @@ html, body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  background-color: #f3ede3;
+  background-color: #F8F4ED;
 }
 
 /* === Body y layout general === */
@@ -86,7 +86,7 @@ h6 {
 
 /* === Header === */
 header {
-  background-color: #f3ede3;
+  background-color: #F8F4ED;
   color: #333;
   padding: 10px 30px;
   display: flex;
@@ -132,7 +132,7 @@ header h2 {
   border: 1px solid #ccc;
   border-radius: 999px;
   color: #333;
-  background-color: #f3ede3;
+  background-color: #F8F4ED;
   transition: all 0.3s ease;
 }
 
@@ -244,7 +244,7 @@ footer {
   width: 100%;
   text-align: center;
   padding: 0.5px;
-  background-color: #e7e3dc;
+  background-color: #F8F4ED;
 }
 
 /* === Imágenes generales === */
@@ -1045,7 +1045,7 @@ line-height: 1.7;
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: #f3ede3;
+  background: #F8F4ED;
   display: flex;
   align-items: center;
   justify-content: center;
