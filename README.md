@@ -19,13 +19,12 @@ Sitio estático hecho a mano, sin framework, sin build y sin dependencias de npm
 | Página | Archivo | Descripción |
 | --- | --- | --- |
 | Inicio | `index.html` | Intro animada, la palabra "Portafolio" con letras que caen y cambian de color al pasar el cursor, estela de íconos que deja el cursor y a "Dani", un personaje que reacciona (saluda, se sorprende, celebra, se duerme). |
-| Trabajos | `proyectos/trabajos.html` | Listado de trabajos. |
-| Trabajos v2 | `proyectos/trabajos2.html` | Nueva versión: mosaico con orden aleatorio en cada carga, categorías por color y vista de detalle de cada trabajo. |
+| Trabajos | `proyectos/trabajos.html` | Mosaico con orden aleatorio en cada carga, categorías por color y vista de detalle de cada trabajo. |
 | Sobre mí | `proyectos/about.html` | Presentación personal. |
 | Contacto | `proyectos/contacto.html` | Datos de contacto. |
 | Proyectos | `proyectos/*.html` | Una página por proyecto (`30udp`, `aaa`, `gsd`, `municipal`, `paae`, `plaquettes`, etc.). `proyecto-base.html` sirve de plantilla. |
 
-`index2.html` solo redirige a `index.html`, e `index-anterior.html` guarda el inicio anterior.
+`index2.html` solo redirige a `index.html`, e `index-anterior.html` guarda el inicio anterior. Igual con `proyectos/trabajos2.html` (redirige a `trabajos.html`) y `proyectos/trabajos-anterior.html` (listado anterior).
 
 ## Estructura
 
@@ -60,7 +59,7 @@ Luego abrir <http://localhost:8765>.
 
 1. Subir las imágenes (`.webp`) o videos a `img/`.
 2. Crear la página del proyecto en `proyectos/` a partir de `proyecto-base.html`.
-3. Agregar una tarjeta `.obra` en `proyectos/trabajos2.html` con sus `data-*`:
+3. Agregar una tarjeta `.obra` en `proyectos/trabajos.html` con sus `data-*`:
    - `data-cats`: categorías separadas por espacio (`branding`, `editorial`, `ilustracion`, `packaging`, `digital`, `animacion`, `tipografia`)
    - `data-proporcion`: proporción de la imagen de portada
    - `data-media`: imágenes o videos del detalle, separados por coma

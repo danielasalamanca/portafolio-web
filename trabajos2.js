@@ -1,4 +1,4 @@
-// === Trabajos v2 (proyectos/trabajos2.html) ===
+// === Trabajos v2 (proyectos/trabajos.html) ===
 // Grilla tipo mosaico y detalle de cada trabajo.
 (function () {
   const grilla = document.querySelector('.t2-grilla');
@@ -267,7 +267,7 @@
     }
   });
 
-  // Enlaces directos (trabajos2.html#sheet) y botón atrás del navegador
+  // Enlaces directos (trabajos.html#sheet) y botón atrás del navegador
   function desdeDireccion() {
     const obra = obras.find((o) => '#' + o.id === decodeURIComponent(location.hash));
     if (obra) abrir(obra, false);
