@@ -556,7 +556,7 @@ body.sin-fondo {
   color: #222;
 }
 a[href^="mailto:"] {
-  color: #ed4845;         /* Cambia el color */
+  color: #94b0ff;         /* Cambia el color */
   text-decoration: none;  /* Quita el subrayado */
   font-weight: 500;      /* Opcional */
 }
@@ -570,7 +570,7 @@ a[href^="mailto:"]:hover {
   font-family: 'Lexend Deca', sans-serif;
   font-weight: 500;
   font-size: 1.8rem;
-  color: #e8413d;
+  color: #94b0ff;
   text-align: left;
   margin-bottom: 1rem;
 }
@@ -640,7 +640,7 @@ a[href^="mailto:"]:hover {
 }
 
 .formulario-contacto button {
-  background-color: #ff3b3f;
+  background-color: #94b0ff;
   color: white;
   padding: 0.75rem;
   border: none;
@@ -667,7 +667,7 @@ a[href^="mailto:"]:hover {
   font-family: 'Lexend Deca', sans-serif;
   font-weight: 400;
   font-size: 1.8rem;
-  color: #ed4845; /* Cambia este valor por el color que prefieras */
+  color: #94b0ff; /* Cambia este valor por el color que prefieras */
 }
 
 @keyframes letra-desde-arriba {
@@ -730,7 +730,7 @@ a.enlace-destacado {
   font-weight: 700;
   font-style: normal;
   font-size: 1rem;
-  color: #ed4845;
+  color: #94b0ff;
   text-decoration: none;
   transition: color 0.2s;
 }
@@ -1176,3 +1176,7 @@ body.intro-fin .dani-img {
   .intro-fila .intro-lateral:last-child  { bottom: -2.4em; right: 0; }
   .intro-carga { left: 16px; bottom: 20px; width: 120px; }
 }
+
+/* Header de Trabajos usado en Sobre mí y Contacto */
+.t2-header { font-family: "neulis-neue", sans-serif; background: transparent; }
+.t2-header a { font-family: inherit; }
