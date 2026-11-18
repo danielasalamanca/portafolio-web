@@ -36,6 +36,18 @@
     -->
     <div class="t2-grilla">
 
+      <article class="obra" id="assum" data-año="2026" data-cats="branding digital" data-proporcion="1"
+        data-media="../img/summit_banner.jpg,../img/summit_landing.jpg,../img/summit_pendon.png,../img/summit_libreta.png,../img/summit_tote.png">
+        <button type="button" class="obra-tarjeta">
+          <img src="../img/summit_banner.jpg" alt="" loading="lazy">
+          <span class="obra-titulo">Antofagasta Space Summit 2026 (ASSUM)</span>
+        </button>
+        <div class="obra-texto" hidden>
+          <h2>Antofagasta Space Summit 2026 (ASSUM)</h2>
+          <p>Diseño de piezas de difusión para el Antofagasta Space Summit, evento que busca posicionar a Antofagasta como un polo de emprendimiento e innovación deep tech en el sector aeroespacial, conectando startups locales con inversionistas e industria nacional e internacional.</p>
+        </div>
+      </article>
+
       <article class="obra" id="temis" data-año="2026" data-cats="digital" data-proporcion="1.78"
         data-media="../img/temis_recorrido.mp4,../img/temis_01_tablero.png,../img/temis_02_ingreso.png,../img/temis_03_informacion.png">
         <button type="button" class="obra-tarjeta">
@@ -153,12 +165,12 @@
         </div>
       </article>
 
-      <!-- Tarjeta con video: muestra la imagen y reproduce el video al pasar el cursor -->
+      <!-- Tarjeta animada: el video se reproduce solo (la imagen se ve mientras carga) -->
       <article class="obra" id="municipal" data-año="2022" data-cats="animacion" data-proporcion="1.25"
         data-media="../img/municipal.mp4,../img/municipal2.mp4">
         <button type="button" class="obra-tarjeta">
           <img src="../img/municipal.webp" alt="" loading="lazy">
-          <video src="../img/municipal.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+          <video src="../img/municipal.mp4" muted loop playsinline autoplay preload="metadata" aria-hidden="true" data-siempre></video>
           <span class="obra-titulo">Mapping Teatro Municipal de Santiago</span>
         </button>
         <div class="obra-texto" hidden>
