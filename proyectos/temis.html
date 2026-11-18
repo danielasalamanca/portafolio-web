@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Temis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../img/favicon.png">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.typekit.net/rse8rry.css">
+  <link rel="stylesheet" href="../styles.css?v=20261026" />
+</head>
+<body class="sin-fondo">
+  <header>
+    <a href="../index.html">
+      <img src="../img/danielasalamanca.webp" alt="danielasalamanca" class="logo-header" />
+    </a>
+    <ul class="menu-links">
+      <li><a href="trabajos.html" class="activo">Trabajos</a></li>
+      <li><a href="about.html">Sobre mí</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </header>
+
+  <section>
+    <div class="proyecto-container">
+         <div class="slider">
+      <button class="slider-arrow left" onclick="prevImg()" aria-label="Anterior">
+        <img src="../img/flechaiz.webp" alt="Anterior">
+      </button>
+      <div class="slider-media"><video id="slider-video" src="../img/temis_recorrido.mp4" muted loop playsinline autoplay controls style="max-width:100%"></video><img id="slider-img" src="" alt="Temis" hidden style="max-width:100%"></div>
+      <button class="slider-arrow right" onclick="nextImg()" aria-label="Siguiente">
+        <img src="../img/flechade.webp" alt="Siguiente">
+      </button>
+    </div>
+      <div class="proyecto-info">
+         <div class="proyecto-info">
+      <div class="badge-año">2026</div>
+      <h2>Temis</h2>
+      <p>Temis es una plataforma para la gestión de causas de los Juzgados de Policía Local, desarrollada por CINNDA para el JPL de la Municipalidad de Pedro Aguirre Cerda. Ordena el trabajo del juzgado en cinco etapas (Ingreso, Asignación, Proceso, Fallo y Cierre) y apoya con IA la digitalización de documentos y las sugerencias, sin reemplazar las decisiones de la magistrada.</p>
+      <p>Diseñé la interfaz completa en Figma: tablero con indicadores de plazos, vistas distintas para magistrada y actuario, firma de decretos y fallos, y vista previa de cada causa. Definí un sistema visual de verde petróleo con acento lima, en DM Sans, con secciones desplegables para no saturar a quien trabaja con muchas causas a la vez.</p>
+    </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Daniela Salamanca</p>
+  </footer>
+
+  <script>
+    const images = ["../img/temis_recorrido.mp4", "../img/temis_01_tablero.png", "../img/temis_02_ingreso.png", "../img/temis_03_informacion.png"];
+    let current = 0;
+    const sliderImg = document.getElementById('slider-img');
+    function showImg(idx) {
+      const src = images[idx], v = document.getElementById('slider-video');
+      const esVideo = /\.mp4$/i.test(src);
+      v.hidden = !esVideo; sliderImg.hidden = esVideo;
+      if (esVideo) v.play().catch(() => {}); else { v.pause(); sliderImg.src = src; }
+    }
+    function prevImg() {
+      current = (current - 1 + images.length) % images.length;
+      showImg(current);
+    }
+    function nextImg() {
+      current = (current + 1) % images.length;
+      showImg(current);
+    }
+    showImg(current);
+  </script>
+<script>window.addEventListener("load",function(){document.body.classList.add("loaded");});</script>
+</body>
+</html>

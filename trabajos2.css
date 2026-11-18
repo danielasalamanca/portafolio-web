@@ -335,7 +335,7 @@ body.trabajos2.detalle-abierto { overflow: hidden; }
   color: #6b6b6b;
 }
 .t2-detalle-cats {
-  display: flex;
+  display: none; /* etiqueta de categoría oculta en el detalle */
   flex-wrap: wrap;
   gap: 6px;
   list-style: none;
