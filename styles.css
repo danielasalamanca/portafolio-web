@@ -1180,3 +1180,25 @@ body.intro-fin .dani-img {
 /* Header de Trabajos usado en Sobre mí y Contacto */
 .t2-header { font-family: "neulis-neue", sans-serif; background: transparent; }
 .t2-header a { font-family: inherit; }
+
+/* === Ajustes responsivos (revisión móvil/tablet) === */
+section { box-sizing: border-box; }
+.enlace-destacado { overflow-wrap: anywhere; }
+.slider-municipal video { max-width: 100%; }
+
+@media (max-width: 600px) {
+  .contacto-container { flex-wrap: nowrap; }
+  .contacto-texto { flex: 0 0 auto; }
+  .about-section p,
+  .about-texto p {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .slider-municipal video {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 5 / 3;
+  }
+  .slider-box-municipal,
+  .slider-municipal { max-width: 100%; width: 100%; }
+}
