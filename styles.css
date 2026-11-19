@@ -1202,3 +1202,10 @@ section { box-sizing: border-box; }
   .slider-box-municipal,
   .slider-municipal { max-width: 100%; width: 100%; }
 }
+
+/* Postdata en gris y más pequeña */
+p.nota-datos {
+  color: #8a8a8a;
+  font-size: 0.8em;
+  line-height: 1.5;
+}

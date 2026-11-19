@@ -471,3 +471,10 @@ body.trabajos2.detalle-abierto { overflow: hidden; }
   .t2-visor video { animation: none; }
   .t2-grilla.mosaico .obra { transition: opacity 0.2s ease; }
 }
+
+/* Postdata en gris y más pequeña */
+p.nota-datos {
+  color: #8a8a8a;
+  font-size: 0.8em;
+  line-height: 1.5;
+}
